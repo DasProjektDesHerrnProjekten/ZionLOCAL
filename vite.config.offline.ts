@@ -3,6 +3,36 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
 
+function saveResultsPlugin() {
+  return {
+    name: 'save-results-api',
+    configureServer(server: any) {
+      server.middlewares.use('/api/save-results', (req: any, res: any) => {
+        if (req.method === 'POST') {
+          let body = '';
+          req.on('data', (chunk: any) => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const { saveExamResultToFile } = require('./scripts/save-result-helper.cjs');
+              const payload = JSON.parse(body);
+              const { baseFilename } = saveExamResultToFile(payload);
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, file: baseFilename }));
+            } catch (err: any) {
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: false, error: err.message }));
+            }
+          });
+        } else {
+          res.statusCode = 405;
+          res.end('Method Not Allowed');
+        }
+      });
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   return {
     server: {
@@ -15,6 +45,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
+      saveResultsPlugin(),
       {
         name: 'fix-html-paths',
         transformIndexHtml: {

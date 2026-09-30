@@ -358,7 +358,8 @@ const Exam = () => {
         // Check if the exam is for the student's stream
         if (foundExam.stream && foundExam.stream !== 'both') {
           console.log('Checking stream compatibility...');
-          const studentStream = student.class?.toLowerCase().includes('social') ? 'social' : 'natural';
+          const studentClass = (student as any)?.class || (student as any)?.grade || '';
+          const studentStream = (student as any)?.stream || (studentClass.toLowerCase().includes('social') ? 'social' : 'natural');
           console.log('Student stream:', studentStream, 'Exam stream:', foundExam.stream);
           if (foundExam.stream !== studentStream) {
             toast({
@@ -734,6 +735,92 @@ const Exam = () => {
       const result = await examService.submitExam(attempt.id, exam, answers, flaggedQuestions);
       console.log('Exam submitted locally:', result);
 
+      // Save detailed answers & results to exam-results folder
+      try {
+        // Build a complete per-question breakdown for ALL questions in the exam.
+        // Questions not answered by the student are marked as unanswered / incorrect.
+        const detailedAnswers = actualQuestionsForScoring.map(q => {
+          const questionId = String(q.id);
+          const selectedOption = answers[questionId]; // undefined if not answered
+          const correctOption = q.correctAnswer;
+          const isFlagged = flaggedQuestions.has(questionId);
+          const selectedText =
+            selectedOption !== undefined && q.options
+              ? q.options[selectedOption]
+              : undefined; // undefined → will display as "No Answer"
+          const correctText =
+            correctOption !== undefined && q.options ? q.options[correctOption] : undefined;
+          return {
+            questionId,
+            question: q.text || (q as any).question || `Question ${questionId}`,
+            selectedOption: selectedOption !== undefined ? selectedOption : null,
+            selectedText: selectedText !== undefined ? selectedText : null,
+            correctOption: correctOption !== undefined ? correctOption : null,
+            correctText: correctText !== undefined ? correctText : null,
+            isFlagged,
+            isCorrect:
+              selectedOption !== undefined &&
+              selectedOption === correctOption &&
+              !isFlagged
+          };
+        });
+
+        // Also capture any answers the student gave for question IDs not in
+        // actualQuestionsForScoring (can happen if offline DB has partial exam data).
+        const coveredIds = new Set(detailedAnswers.map(d => d.questionId));
+        for (const [questionId, selectedOption] of Object.entries(answers)) {
+          if (!coveredIds.has(questionId)) {
+            detailedAnswers.push({
+              questionId,
+              question: `Question ${questionId}`,
+              selectedOption,
+              selectedText: null,
+              correctOption: null,
+              correctText: null,
+              isFlagged: flaggedQuestions.has(questionId),
+              isCorrect: false
+            });
+          }
+        }
+
+        const submissionData = {
+          student: {
+            name: student.name,
+            student_id: (student as any).student_id || student.id || (student as any).admission_id,
+            class: (student as any).class || (student as any).grade,
+            stream: (student as any).stream || (student as any).section,
+          },
+          exam: {
+            id: exam.id,
+            title: exam.title,
+            subject: exam.subject,
+            duration: exam.duration
+          },
+          result,
+          answers,
+          detailedAnswers,
+          submittedAt: new Date().toISOString()
+        };
+
+        // 1. Post to local server to write directly to exam-results/ folder
+        await fetch('/api/save-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submissionData)
+        }).catch(err => console.warn('Could not post to /api/save-results:', err));
+
+        // 2. Also keep a persistent backup copy in localStorage
+        try {
+          const existingBackups = JSON.parse(localStorage.getItem('exam_results_folder_backup') || '[]');
+          existingBackups.push(submissionData);
+          localStorage.setItem('exam_results_folder_backup', JSON.stringify(existingBackups));
+        } catch (e) {
+          console.warn('Backup in localStorage failed:', e);
+        }
+      } catch (saveErr) {
+        console.warn('Error formatting results for folder saving:', saveErr);
+      }
+
       // Clear saved answers and flags from localStorage (legacy cleanup)
       if (exam && student) {
         const key = getStorageKey(exam.id, student.id);
@@ -915,7 +1002,7 @@ const Exam = () => {
               <img src={logo} alt="Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain flex-shrink-0" />
               <div className="min-w-0">
                 <h1 className="text-sm sm:text-lg font-display font-bold truncate">Exam Instructions</h1>
-                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {student.admission_id}</p>
+                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {(student as any).admission_id || (student as any).student_id || 'N/A'}</p>
               </div>
             </div>
           </div>
@@ -1049,7 +1136,7 @@ const Exam = () => {
               <img src={logo} alt="Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain flex-shrink-0" />
               <div className="min-w-0">
                 <h1 className="text-sm sm:text-lg font-display font-bold truncate">Section Transition</h1>
-                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {student.admission_id}</p>
+                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {(student as any).admission_id || (student as any).student_id || 'N/A'}</p>
               </div>
             </div>
           </div>
@@ -1116,7 +1203,7 @@ const Exam = () => {
               <img src={logo} alt="Logo" className="h-8 w-8 sm:h-10 sm:w-10 object-contain flex-shrink-0" />
               <div className="min-w-0">
                 <h1 className="text-sm sm:text-lg font-display font-bold truncate">{exam.title}</h1>
-                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {student.admission_id}</p>
+                <p className="text-xs text-primary-foreground/70 truncate">{student.name} • {(student as any).admission_id || (student as any).student_id || 'N/A'}</p>
               </div>
             </div>
 

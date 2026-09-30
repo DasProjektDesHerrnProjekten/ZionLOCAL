@@ -27,6 +27,6 @@ if not exist "dist-offline\index.html" (
     exit /b 1
 )
 
-REM Start the server using npx serve
-echo Starting server on port 8080...
-npx serve dist-offline -l 8080 -s --no-clipboard
+REM Start the server using local Node script with auto-save for exam results
+echo Starting server on port 8080 (results will be saved to exam-results/ folder)...
+node scripts/offline-server.cjs

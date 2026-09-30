@@ -1,0 +1,14 @@
+[
+  {
+    "submitted_at": "2026-09-30 08:30:04",
+    "student_id": "TEST001",
+    "student_name": "Test Student",
+    "exam_id": "mock-general-001",
+    "exam_title": "General Knowledge Test",
+    "score": 9,
+    "total_marks": 10,
+    "percentage": "90.0",
+    "json_file": "TEST001_mock-general-001_2026-09-30T08-30-04-055Z.json",
+    "report_file": "TEST001_mock-general-001_2026-09-30T08-30-04-055Z.txt"
+  }
+]

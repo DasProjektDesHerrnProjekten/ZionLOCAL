@@ -1,0 +1,46 @@
+{
+  "student": {
+    "name": "Test Student",
+    "student_id": "TEST001",
+    "grade": "12",
+    "stream": "natural"
+  },
+  "exam": {
+    "id": "mock-general-001",
+    "title": "General Knowledge Test",
+    "subject": "General"
+  },
+  "result": {
+    "score": 9,
+    "total_marks": 10,
+    "total_questions": 10,
+    "percentage": 90,
+    "correct_answers": 9,
+    "time_taken": 145
+  },
+  "answers": {
+    "1": 1,
+    "2": 0,
+    "3": 2
+  },
+  "detailedAnswers": [
+    {
+      "questionId": "1",
+      "question": "What is the capital of Ethiopia?",
+      "selectedOption": 1,
+      "selectedText": "Addis Ababa",
+      "correctOption": 1,
+      "correctText": "Addis Ababa",
+      "isCorrect": true
+    },
+    {
+      "questionId": "2",
+      "question": "What is 5 x 5?",
+      "selectedOption": 0,
+      "selectedText": "25",
+      "correctOption": 0,
+      "correctText": "25",
+      "isCorrect": true
+    }
+  ]
+}

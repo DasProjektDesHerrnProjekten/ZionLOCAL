@@ -1,0 +1,30 @@
+=======================================================
+                EXAM RESULT & ANSWER SHEET             
+=======================================================
+Student Name:     Test Student
+Student ID:       TEST001
+Class / Stream:   12 (natural)
+Exam Title:       General Knowledge Test
+Exam ID:          mock-general-001
+Subject:          General
+Submission Time:  30.9.2026, 11:30:04
+Score:            9 / 10
+Percentage:       90.0%
+Correct Answers:  9 / 10
+Time Spent:       2m 25s
+=======================================================
+QUESTION BY QUESTION BREAKDOWN:
+-------------------------------------------------------
+
+Question 1: What is the capital of Ethiopia?
+  Student Answer: Addis Ababa
+  Correct Answer: Addis Ababa
+  Result:         ✅ CORRECT
+
+Question 2: What is 5 x 5?
+  Student Answer: 25
+  Correct Answer: 25
+  Result:         ✅ CORRECT
+
+=======================================================
+End of Report

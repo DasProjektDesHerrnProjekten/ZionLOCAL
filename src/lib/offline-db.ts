@@ -454,7 +454,7 @@ class OfflineDatabase {
       const hasRow = stmt.step();
       const result = hasRow ? stmt.getAsObject() : null;
       stmt.free();
-      return result || null;
+      return (result as unknown as OfflineStudent) || null;
     } catch (error) {
       console.error('❌ Failed to get student:', error);
       return null;
@@ -609,7 +609,7 @@ class OfflineDatabase {
       const answers: Record<string, number> = {};
       while (stmt.step()) {
         const row = stmt.getAsObject();
-        answers[row.question_id] = row.answer;
+        answers[row.question_id as string] = row.answer as number;
       }
       stmt.free();
       return answers;
@@ -653,7 +653,7 @@ class OfflineDatabase {
       const flags = new Set<string>();
       while (stmt.step()) {
         const row = stmt.getAsObject();
-        flags.add(row.question_id);
+        flags.add(row.question_id as string);
       }
       stmt.free();
       return flags;
@@ -865,7 +865,7 @@ class OfflineDatabase {
       const stmt = this.db.prepare('SELECT * FROM students');
       const results: OfflineStudent[] = [];
       while (stmt.step()) {
-        results.push(stmt.getAsObject() as OfflineStudent);
+        results.push(stmt.getAsObject() as unknown as OfflineStudent);
       }
       stmt.free();
       return results;
@@ -915,10 +915,10 @@ class OfflineDatabase {
       stmt.free();
 
       if (result) {
-        result.answers = JSON.parse(result.answers);
+        result.answers = JSON.parse(result.answers as string);
       }
 
-      return result || null;
+      return (result as unknown as OfflineExamResult) || null;
     } catch (error) {
       console.error('❌ Failed to get exam result:', error);
       return null;
@@ -1094,7 +1094,7 @@ class OfflineDatabase {
       const examIds: string[] = [];
       while (stmt.step()) {
         const row = stmt.getAsObject();
-        examIds.push(row.exam_id);
+        examIds.push(row.exam_id as string);
       }
       stmt.free();
       return examIds;

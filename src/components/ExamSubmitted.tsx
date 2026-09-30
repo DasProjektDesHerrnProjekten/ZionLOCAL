@@ -1,13 +1,27 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { useOfflineAuth } from '@/contexts/OfflineAuthContext';
+import { isOfflineMode } from '@/lib/offline-mode';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Clock, User, BookOpen, Calendar, Home, Printer } from 'lucide-react';
+import { CheckCircle, Clock, User, BookOpen, Calendar, LogOut } from 'lucide-react';
 import { useEffect } from 'react';
 
 export const ExamSubmitted = () => {
-  const { student } = useAuth();
+  const { student: onlineStudent, logout: onlineLogout } = useAuth();
+  const offlineAuth = useOfflineAuth();
+  // Use offline student data in offline/SEB mode
+  const student = isOfflineMode() ? offlineAuth.student : onlineStudent;
   const navigate = useNavigate();
   const currentDate = new Date();
+
+  const handleLogout = () => {
+    if (isOfflineMode()) {
+      offlineAuth.logout();
+    } else {
+      onlineLogout();
+    }
+    navigate('/login');
+  };
 
   // Calculate next Friday at 12:00 PM
   const nextFriday = new Date();
@@ -89,17 +103,17 @@ export const ExamSubmitted = () => {
 
                 <div className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                   <span className="text-muted-foreground">Admission ID</span>
-                  <span className="font-semibold text-foreground">{student?.admission_id || 'N/A'}</span>
+                  <span className="font-semibold text-foreground">{(student as any)?.admission_id || (student as any)?.student_id || 'N/A'}</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                   <span className="text-muted-foreground">Class/stream</span>
-                  <span className="font-semibold text-foreground">{student?.class || 'N/A'}</span>
+                  <span className="font-semibold text-foreground">{(student as any)?.class || (student as any)?.grade || 'N/A'}</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                   <span className="text-muted-foreground">Section</span>
-                  <span className="font-semibold text-foreground">{student?.section || 'N/A'}</span>
+                  <span className="font-semibold text-foreground">{(student as any)?.section || (student as any)?.stream || 'N/A'}</span>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-background rounded-lg border border-border/60">
@@ -140,23 +154,14 @@ export const ExamSubmitted = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        {/* Action Buttons - Only Logout */}
+        <div className="flex justify-center mt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <Button
-            onClick={() => navigate('/dashboard')}
-            className="px-8 py-3 text-base sm:text-lg font-semibold shadow-soft hover:shadow-elevated transition-all duration-200"
+            onClick={handleLogout}
+            className="px-8 py-3 text-base sm:text-lg font-semibold shadow-soft hover:shadow-elevated transition-all duration-200 bg-destructive text-destructive-foreground hover:bg-destructive/90 flex items-center gap-2"
           >
-            <Home className="w-5 h-5 mr-2" />
-            Back to Dashboard
-          </Button>
-
-          <Button
-            variant="outline"
-            onClick={() => window.print()}
-            className="px-8 py-3 text-base sm:text-lg font-semibold shadow-soft hover:shadow-elevated transition-all duration-200"
-          >
-            <Printer className="w-5 h-5 mr-2" />
-            Print Receipt
+            <LogOut className="w-5 h-5 mr-2" />
+            Logout
           </Button>
         </div>
       </div>

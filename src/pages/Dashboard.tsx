@@ -4,9 +4,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useOfflineAuth } from '@/contexts/OfflineAuthContext';
 import Header from '@/components/Header';
 import ExamCard from '@/components/ExamCard';
-import OfflineAdminButton from '@/components/OfflineAdminButton';
+import { Button } from '@/components/ui/button';
 import { exams as baseExams } from '@/data/exams';
-import { BookOpen, Trophy, Clock, Atom, Users, GraduationCap } from 'lucide-react';
+import { BookOpen, Trophy, Clock, Atom, Users, GraduationCap, LogOut } from 'lucide-react';
 import { getOfflineExamLoader } from '@/lib/offline-exam-loader';
 import { getOfflineDatabase } from '@/lib/offline-db';
 import { isOfflineMode } from '@/lib/offline-mode';
@@ -61,10 +61,12 @@ const loadExamsWithAdminChanges = async () => {
     }
     
     // In online mode, load exams from Supabase Storage
-    let exams = await loadExamsFromStorage();
+    const onlineDeps = await loadOnlineDependencies();
+    if (!onlineDeps) return [];
+    let exams = await onlineDeps.loadExamsFromStorage();
     
     // Load persisted admin changes from Supabase
-    const persistedChanges = await loadExamAdminChanges();
+    const persistedChanges = await onlineDeps.loadExamAdminChanges();
     
     // First apply admin changes
     let updatedExams = exams.map(exam => {
@@ -104,7 +106,8 @@ const loadExamsWithAdminChanges = async () => {
   } catch (error) {
     console.error('Failed to load exams from storage, falling back to local:', error);
     // Fallback to local exams if storage fails
-    const persistedChanges = await loadExamAdminChanges();
+    const onlineDeps = await loadOnlineDependencies();
+    const persistedChanges = onlineDeps ? await onlineDeps.loadExamAdminChanges() : {};
     
     let updatedExams = baseExams.map(exam => {
       const change = persistedChanges[exam.id];
@@ -141,9 +144,18 @@ const loadExamsWithAdminChanges = async () => {
 };
 
 const Dashboard = () => {
-  const { isAuthenticated, student, isLoading } = useAuth();
+  const { isAuthenticated, student, isLoading, logout } = useAuth();
   const offlineAuth = useOfflineAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (isOfflineMode()) {
+      offlineAuth.logout();
+    } else {
+      logout();
+    }
+    navigate('/login');
+  };
 
   // Get exams with admin changes applied - must be before any conditional returns
   const [examsWithChanges, setExamsWithChanges] = useState([]);
@@ -264,22 +276,31 @@ const Dashboard = () => {
     };
 
     const syncScheduledExams = async () => {
-      const updatedScheduled = await fetchScheduledExams();
-      setScheduledExams(updatedScheduled);
+      const onlineDeps = await loadOnlineDependencies();
+      if (onlineDeps) {
+        const updatedScheduled = await onlineDeps.fetchScheduledExams();
+        setScheduledExams(updatedScheduled);
+      }
     };
 
     const syncProgrammes = async () => {
-      const updatedProgrammes = await fetchProgrammes();
-      setProgrammes(updatedProgrammes);
+      const onlineDeps = await loadOnlineDependencies();
+      if (onlineDeps) {
+        const updatedProgrammes = await onlineDeps.fetchProgrammes();
+        setProgrammes(updatedProgrammes);
+      }
     };
 
     const syncExamAccess = async () => {
       if (!student?.id) return;
 
       try {
+        const onlineDeps = await loadOnlineDependencies();
+        if (!onlineDeps) return;
+
         const accessibleIds = new Set<string>();
         const accessPromises = examsWithChanges.map(exam =>
-          checkStudentExamAccess(student.id, exam.id)
+          onlineDeps.checkStudentExamAccess(student.id, exam.id)
         );
         const accessResults = await Promise.all(accessPromises);
 
@@ -378,15 +399,24 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
       <Header />
-      <OfflineAdminButton />
 
       <main className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
-        <div className="mb-8 animate-fade-in">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
-            Welcome back, {currentStudent?.name?.split(' ')[0] || 'Student'}!
-          </h2>
-          <p className="text-muted-foreground mt-1">Ready to take your exams? Your upcoming assessments are listed below.</p>
+        <div className="mb-8 animate-fade-in flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+              Welcome back, {currentStudent?.name?.split(' ')[0] || 'Student'}!
+            </h2>
+            <p className="text-muted-foreground mt-1">Ready to take your exams? Your upcoming assessments are listed below.</p>
+          </div>
+          <Button
+            variant="outline"
+            onClick={handleLogout}
+            className="flex items-center gap-2 self-start sm:self-auto border-destructive/30 text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
+          >
+            <LogOut size={18} />
+            Logout
+          </Button>
         </div>
 
         {/* Exam Schedule Section */}

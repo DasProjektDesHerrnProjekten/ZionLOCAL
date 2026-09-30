@@ -1,24 +1,40 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { useOfflineAuth } from '@/contexts/OfflineAuthContext';
+import { isOfflineMode } from '@/lib/offline-mode';
 import { LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import { motion } from 'framer-motion';
 
 const Header = () => {
-  const { student, logout } = useAuth();
+  const { student: onlineStudent, logout: onlineLogout } = useAuth();
+  const offlineAuth = useOfflineAuth();
+  const student = isOfflineMode() ? offlineAuth.student : onlineStudent;
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    if (isOfflineMode()) {
+      offlineAuth.logout();
+    } else {
+      onlineLogout();
+    }
     navigate('/login');
   };
 
   const navigateToProfile = () => {
-    navigate('/profile');
+    if (!isOfflineMode()) {
+      navigate('/profile');
+    }
   };
 
   // Don't render anything if there's no student
   if (!student) return null;
+
+  const displayName = student.name || 'N/A';
+  const displayClass = (student as any).class || (student as any).grade || 'N/A';
+  const displaySection = (student as any).section || (student as any).stream || 'N/A';
+  const displayRoll = (student as any).roll_number || (student as any).student_id || '-';
+  const displayAdmission = (student as any).admission_id || (student as any).student_id || '-';
 
   return (
     <header className="bg-primary text-primary-foreground shadow-elevated animate-fade-in">
@@ -38,24 +54,24 @@ const Header = () => {
             <div className="flex items-center gap-6 text-sm">
               <div className="flex flex-col items-end">
                 <span className="text-primary-foreground/70 text-xs">Student Name</span>
-                <span className="font-semibold">{student.name || 'N/A'}</span>
+                <span className="font-semibold">{displayName}</span>
               </div>
               <div className="w-px h-8 bg-primary-foreground/20" />
               <div className="flex flex-col items-end">
                 <span className="text-primary-foreground/70 text-xs">Class & Section</span>
                 <span className="font-semibold">
-                  {student.class ? `${student.class} - ` : ''}{student.section || 'N/A'}
+                  {displayClass} - {displaySection}
                 </span>
               </div>
               <div className="w-px h-8 bg-primary-foreground/20" />
               <div className="flex flex-col items-end">
                 <span className="text-primary-foreground/70 text-xs">Roll Number</span>
-                <span className="font-semibold">{student.roll_number}</span>
+                <span className="font-semibold">{displayRoll}</span>
               </div>
               <div className="w-px h-8 bg-primary-foreground/20" />
               <div className="flex flex-col items-end">
                 <span className="text-primary-foreground/70 text-xs">Admission No</span>
-                <span className="font-semibold">{student.admission_id}</span>
+                <span className="font-semibold">{displayAdmission}</span>
               </div>
             </div>
           </div>
@@ -69,7 +85,7 @@ const Header = () => {
               onClick={navigateToProfile}
             >
               <User size={16} />
-              <span className="text-sm font-medium">{student.name || 'Student'}</span>
+              <span className="text-sm font-medium">{displayName}</span>
             </motion.button>
           </div>
 
@@ -82,7 +98,7 @@ const Header = () => {
               onClick={navigateToProfile}
             >
               <User size={18} />
-              <span className="text-sm font-medium">{student.name?.split(' ')[0] || 'User'}</span>
+              <span className="text-sm font-medium">{displayName.split(' ')[0] || 'User'}</span>
             </motion.button>
             
             <motion.button
@@ -103,16 +119,16 @@ const Header = () => {
           <div>
             <span className="text-primary-foreground/70">Class:</span>{' '}
             <span className="font-semibold">
-              {student.class ? `${student.class} - ` : ''}{student.section || 'N/A'}
+              {displayClass} - {displaySection}
             </span>
           </div>
           <div>
             <span className="text-primary-foreground/70">Roll:</span>{' '}
-            <span className="font-semibold">{student.roll_number}</span>
+            <span className="font-semibold">{displayRoll}</span>
           </div>
           <div className="col-span-2">
             <span className="text-primary-foreground/70">Admission No:</span>{' '}
-            <span className="font-semibold">{student.admission_id}</span>
+            <span className="font-semibold">{displayAdmission}</span>
           </div>
         </div>
       </div>
