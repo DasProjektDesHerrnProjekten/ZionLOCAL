@@ -1,0 +1,14 @@
+{
+  "id": "chem-online-test",
+  "title": "Chemistry Online Test",
+  "subject": "Chemistry",
+  "duration": 90,
+  "totalQuestions": 0,
+  "totalMarks": 0,
+  "description": "Chemistry Online Test - Add description here",
+  "scheduledDate": "2026-09-26",
+  "status": "active",
+  "stream": "natural",
+  "password": "CHEMONLINE",
+  "questions": []
+}

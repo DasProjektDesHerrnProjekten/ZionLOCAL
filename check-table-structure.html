@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Portal Admins Table Structure</title>
+</head>
+<body>
+    <h1>Check Portal Admins Table Structure</h1>
+    <p>Open browser console to see results</p>
+    <script>
+        // Replace with your actual Supabase credentials
+        const SUPABASE_URL = 'https://kccrpozqbtrdwrldddcd.supabase.co';
+        // You'll need to get your anon key from .env file
+        
+        async function checkTableStructure() {
+            try {
+                // First, let's try to query the table to see what columns exist
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/portal_admins?select=*&limit=1`, {
+                    headers: {
+                        'apikey': 'YOUR_ANON_KEY_HERE',
+                        'Authorization': 'Bearer YOUR_ANON_KEY_HERE'
+                    }
+                });
+                
+                const data = await response.json();
+                console.log('Table data sample:', data);
+                
+                if (data && data.length > 0) {
+                    console.log('Available columns:', Object.keys(data[0]));
+                } else {
+                    console.log('Table is empty or does not exist');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        checkTableStructure();
+    </script>
+</body>
+</html>

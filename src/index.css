@@ -1,0 +1,278 @@
+/* Commented out Google Fonts import for SEB compatibility */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 45 90% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 45 90% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 45 90% 8%;
+
+    --primary: 45 90% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 20% 94%;
+    --secondary-foreground: 45 90% 35%;
+
+    --muted: 45 20% 94%;
+    --muted-foreground: 45 20% 40%;
+
+    --accent: 45 90% 35%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 45 20% 88%;
+    --input: 45 20% 88%;
+    --ring: 45 90% 35%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens - Gold theme */
+    --brand-gold: 45 90% 35%;
+    --brand-gold-light: 45 70% 90%;
+    --brand-gold-glow: 45 90% 45%;
+    --brand-black: 0 0% 10%;
+    --brand-black-light: 0 0% 20%;
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px -4px hsl(45 90% 35% / 0.1);
+    --shadow-glow: 0 0 30px hsl(45 90% 35% / 0.1);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 45 90% 8%;
+    --sidebar-primary: 45 90% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 45 20% 94%;
+    --sidebar-accent-foreground: 45 90% 35%;
+    --sidebar-border: 45 20% 88%;
+    --sidebar-ring: 45 90% 35%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 45 90% 50%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 45 90% 50%;
+    --accent-foreground: 0 0% 8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 45 90% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card border border-border shadow-lg rounded-2xl;
+  }
+
+  .glass-input {
+    @apply bg-secondary/50 border-border focus:border-primary/50 focus:ring-primary/20;
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px hsl(45 90% 35% / 0.2); }
+    50% { box-shadow: 0 0 30px hsl(45 90% 35% / 0.35); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSuble 2s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSuble {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-50px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  70% {
+    transform: scale(0.9) translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Exam security styles - prevent screenshots and selection */
+.exam-security-mode {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  
+  /* Prevent text selection */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Prevent drag and drop */
+  -webkit-user-drag: none;
+  user-drag: none;
+  
+  /* Clear clipboard on blur */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Prevent printing during exam */
+@media print {
+  .exam-security-mode {
+    display: none !important;
+  }
+  
+  body {
+    display: none !important;
+  }
+}
+
+/* Prevent context menu during exam */
+.exam-security-mode * {
+  -webkit-context-menu: none;
+  -moz-context-menu: none;
+  -ms-context-menu: none;
+  context-menu: none;
+}

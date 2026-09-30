@@ -1,0 +1,1658 @@
+export interface Question {
+  id: number | string;
+  text: string;
+  options?: string[];
+  correctAnswer?: number;
+  type?: string;
+  section?: string;
+  passage?: string;
+  passageId?: string;
+  explanation?: string;
+  rationale?: string;
+  isPassage?: boolean;
+  image?: string;
+}
+
+export interface Exam {
+  id: string;
+  title: string;
+  subject: string;
+  duration: number;
+  totalQuestions: number;
+  totalMarks?: number; // Total marks the exam is out of (e.g., 10, 100, etc.)
+  description: string;
+  scheduledDate: string;
+  status: 'upcoming' | 'ongoing' | 'completed' | 'inactive' | 'active' | 'disabled' | 'scheduled';
+  questions: Question[];
+  stream?: 'natural' | 'social' | 'both';
+  password?: string;
+  startTime?: string;
+  endTime?: string;
+  lastUpdated?: number;
+  editableTitle?: string; // Custom title that can be set by superadmins
+}
+
+import { eueeVerbal2021Questions } from './eueeVerbalReasoning2021';
+import { chemistryExam2018 } from './chemistryExam2018';
+import { economicsExam2018 } from './economicsExam2018';
+import { physicsExam } from './physicsExam';
+import { geographyExam2018 } from './geographyExam2018';
+import { historyExam2018 } from './historyExam2018';
+import { satExam2018 } from './satExam2018';
+import { mathExam2018 } from './mathExam2018';
+import { biologyExam2018 } from './biologyExam2018';
+import { eueeEnglish2010 } from './eueeEnglish2010';
+import { euee2013 } from './euee2013';
+import { satEuee2013 } from './satEuee2013';
+import { eueeEnglishNatural2016 } from './eueeEnglishNatural2016';
+import { chemOnlineTest } from './chemOnlineTest';
+import { chemistryGrade12Model1 } from './chemistryGrade12Model1';
+import { eueeSat } from './eueeSat';
+import { geographyModel2nd2026 } from './geographyModel2nd2026';
+import { satExamNew } from './satExamNew';
+
+export const mockExam: Exam = {
+  id: 'mock-2023-12',
+  title: 'GENERAL KNOWLEDGE MOCK EXAM 2026',
+  subject: 'General Knowledge',
+  duration: 10,
+  totalQuestions: 10,
+  totalMarks: 10,
+  description: '10-minute General Knowledge Mock Assessment for All Students',
+  scheduledDate: '2026-02-21',
+  status: 'active',
+  stream: 'both',
+  questions: [
+    {
+      id: 1,
+      text: 'What is the capital of France?',
+      options: ['London', 'Berlin', 'Paris', 'Madrid'],
+      correctAnswer: 2,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 2,
+      text: 'What is 2 + 2?',
+      options: ['3', '4', '5', '6'],
+      correctAnswer: 1,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 3,
+      text: 'Which planet is known as the Red Planet?',
+      options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
+      correctAnswer: 1,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 4,
+      text: 'What is the largest ocean on Earth?',
+      options: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
+      correctAnswer: 3,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 5,
+      text: 'How many continents are there?',
+      options: ['5', '6', '7', '8'],
+      correctAnswer: 2,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 6,
+      text: 'What is the chemical symbol for water?',
+      options: ['CO2', 'H2O', 'NaCl', 'O2'],
+      correctAnswer: 1,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 7,
+      text: 'Who wrote "Romeo and Juliet"?',
+      options: ['Charles Dickens', 'William Shakespeare', 'Mark Twain', 'Jane Austen'],
+      correctAnswer: 1,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 8,
+      text: 'What is the largest mammal?',
+      options: ['African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+      correctAnswer: 1,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 9,
+      text: 'What year did World War II end?',
+      options: ['1943', '1944', '1945', '1946'],
+      correctAnswer: 2,
+      section: 'GENERAL KNOWLEDGE'
+    },
+    {
+      id: 10,
+      text: 'What is the currency of Japan?',
+      options: ['Yuan', 'Won', 'Yen', 'Ringgit'],
+      correctAnswer: 2,
+      section: 'GENERAL KNOWLEDGE'
+    }
+  ]
+};
+
+export const exams: Exam[] = [
+  mockExam,
+  {
+    id: 'english-euee-2018',
+    title: 'MESKAYE ONLINE EXAM 2018 MODEL-1 ENGLISH',
+    subject: 'English',
+    duration: 120,
+    totalQuestions: 120,
+    totalMarks: 100,
+    description: 'English EUEE Exam - Ginbot 2010 (June, 2018)',
+    scheduledDate: '2026-02-21',
+    status: 'ongoing',
+    stream: 'natural',
+    password: 'ENGLISH2025',
+    questions: [
+      // Section One: Word Order (1-5)
+      {
+        id: 1,
+        text: 'In got has house all money new the her she.',
+        options: [
+          'She has got her money all in the new house.',
+          'She has got all her money in the new house.',
+          'She has all her new money got in the house.',
+          'All her money she has got in the new house.'
+        ],
+        correctAnswer: 1,
+        section: 'Word Order'
+      },
+      {
+        id: 2,
+        text: 'Planet could on our how that have beyond implications understanding life go far started Earth.',
+        options: [
+          'How life started on our Earth could have understanding implications beyond planet that go far.',
+          'Earth could have understanding implications that go far beyond how our planet started on life.',
+          'Understanding how life started on Earth could have implications that go far beyond our planet.',
+          'Our planet could have implications how life go far started beyond that understanding on Earth.'
+        ],
+        correctAnswer: 2,
+        section: 'Word Order'
+      },
+      {
+        id: 3,
+        text: 'That anything me don\'t to like again say.',
+        options: [
+          'Don\'t again say like that anything to me.',
+          'Don\'t say anything like that to me again.',
+          'Don\'t to me say anything like that again.',
+          'Don\'t say anything to me like that again.'
+        ],
+        correctAnswer: 1,
+        section: 'Word Order'
+      },
+      {
+        id: 4,
+        text: 'Lung pollution is causes why air obvious cancer.',
+        options: [
+          'Why lung cancer causes air pollution is obvious.',
+          'Lung cancer causes why air pollution is obvious.',
+          'Why causes lung cancer air pollution is obvious.',
+          'Why air pollution causes lung cancer is obvious.'
+        ],
+        correctAnswer: 3,
+        section: 'Word Order'
+      },
+      {
+        id: 5,
+        text: 'It to wanted you today me do.',
+        options: [
+          'You wanted me to do it today.',
+          'Today you wanted it me to do.',
+          'It wanted me today you to do.',
+          'Me wanted you to do it today.'
+        ],
+        correctAnswer: 0,
+        section: 'Word Order'
+      },
+      // Section Two: Paragraph Coherence (6-9)
+      {
+        id: 6,
+        text: 'A. In 1991, the country launched an early-warning system.\nB. Mexico\'s recent quake occurred 32 years after the 1985 shock.\nC. Since then, Mexico has worked to shore up its earthquake preparedness.\nD. Some had a minute to duck and cover.\nE. Thanks to sirens and smartphones, thousands were alerted.\nF. Those seconds can mean the difference between life and death.',
+        options: [
+          'A E B C F D',
+          'F A E B D C',
+          'B C A E D F',
+          'C A B D F E'
+        ],
+        correctAnswer: 2,
+        section: 'Paragraph Coherence'
+      },
+      {
+        id: 7,
+        text: 'A. I knew the journey could be tough but not as bitter.\nB. Something more unbearable! My visa application was denied.\nC. I migrated to Egypt in December 2005.\nD. In fact, you have to experience it yourself to see how severe things could be.\nE. The weather was harsh and the police were unfriendly.',
+        options: [
+          'C A B E D',
+          'C E D B A',
+          'C E A B D',
+          'C A E D B'
+        ],
+        correctAnswer: 3,
+        section: 'Paragraph Coherence'
+      },
+      {
+        id: 8,
+        text: 'A. It is about cultivating one\'s mind.\nB. I believe in the power of education.\nC. It also doesn\'t matter what color your skin is.\nD. Learning can be the same for anyone.\nE. So, it doesn\'t matter how much money your father has.',
+        options: [
+          'D E C A B',
+          'D A E C A',
+          'B D E C A',
+          'B A E D C'
+        ],
+        correctAnswer: 3,
+        section: 'Paragraph Coherence'
+      },
+      {
+        id: 9,
+        text: 'A. Such people do it more for pleasure than necessity.\nB. Weekend is the best time for those who buy essential things for life.\nC. Very few people can avoid shopping at least once a week.\nD. For some people, however, shopping has become a daily routine.\nE. Shopping is a necessary part of life.',
+        options: [
+          'C D B A E',
+          'E C D A B',
+          'E D B C A',
+          'B D C E A'
+        ],
+        correctAnswer: 1,
+        section: 'Paragraph Coherence'
+      },
+      // Section Three: Reading Comprehension (10-16)
+      // Full passage for questions 10-16
+      {
+        id: 'passage-1',
+        type: 'passage',
+        text: 'THE SHRINKING EARTH: ECOLOGICAL THREATS\n\n1. In 1977, the Food and Agriculture Organization (FAO) and UNESCO jointly published an alarming map of the spread of deserts across the world. Shaded in orange, pink and red were all the areas in danger of desertification. The colored patches covered a major part of the developing world outside the rainy equatorial belt. In Latin America they covered north-east Brazil, central and northern Mexico and stretched right down the Andes as far as Chile. They ate into the Horn of Africa and much of the south-west of the continent. And without interruption they reached half way round the globe in a broad swathe from the Atlantic coast of the Sahara, right across North Africa and the Sahel, through the Middle East and Persia to Pakistan and north-west India.\n\n2. There could be no more graphic expression of the ecological dangers that threaten so much food production, so many livelihoods in the developing countries. The world is losing precious agriculture land at twice the rate that new land is being broken for farming. An area greater than Great Britain is disappearing every year. Soil is being exhausted, eroded, and blown away at the rate of two and a half billion tons per year. By the end of the century, the world may have to support one and a half times its present population on only three-quarters of its present cultivated area.\n\n3. In his report on the state of the environment in 1977, United Nations Environment Programme Director, Mostafa Tolba, warned that, if present trends continue, there would be only 0.15 hectares of farm land per person by the year 2000, half the 1975 level. Productivity would have to double merely to allow people to get the same amount of food as today. These are the figures on which he based that cultivation: in 1975 there were 1240 million hectares under cultivation. Over the next 25 years, perhaps another 300 million new hectares may be opened up but over the same period 600 million hectares- half the entire 1975 cultivated area- may be lost. Of these, half will probably disappear under the ink-bolt spread of cities, which are expanding horizontally twice as fast as the populations are growing, and over some of the best agricultural land. The other 300 million will be the toll of soil degradation.\n\n4. At least half of the total erosion will be in the world\'s 45 million square kilometers of potentially productive but ecologically precarious dry lands, which stretch through a hundred nations. About 700 million people live in this zone, almost all of them in developing countries, and 18 million live in areas that are currently undergoing rapid desertification.\n\n5. Everywhere the deserts are advancing. In Sudan, the southern edge of the Sahara moved south by 100 kms between 1958 and 1975. The deserts do not march forward on a solid front, like an army. Patches appear, like those at Aorema in Burkina Faso, around centers of population or watering holes, then spread, link up with others, and finally merge into the desert itself.\n\n6. The chief agent of what has been called leprosy of the soil is man, the impact of his activities on highly sensitive and delicately balanced ecosystem. The prime factor in the process is population increase. The number of people in the Sahel, for example is doubling every 25 to 30 years. We can see everywhere the consequences of this among settled farmers: the cutting down of fallow periods, progressive decline in the vegetation cover, increasing erosion. As population goes on growing, cultivation is pushed into areas that are entirely unsuitable for agriculture, and there the process progresses even more rapidly.',
+        section: 'Reading Comprehension',
+        isPassage: true
+      },
+      {
+        id: 10,
+        text: 'Which paragraph could be cited as a good example to show that the continent of Africa has been seriously affected by desertification?',
+        options: [
+          'Paragraph 1',
+          'Paragraph 4',
+          'Paragraph 6',
+          'Paragraph 5'
+        ],
+        correctAnswer: 0,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1'
+      },
+      {
+        id: 11,
+        text: 'In relative terms, which one of the following factors contributes more to desertification?',
+        options: [
+          'Increase in the amount of erosion',
+          'Cultivation of land unsuitable for farming',
+          'Decrease in land left uncultivated',
+          'Decline in vegetation covering the areas'
+        ],
+        correctAnswer: 3,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1',
+        explanation: 'Paragraph 6 explains that the chief agent of desertification is human activity, with population increase being the prime factor, leading to the decline in vegetation cover.'
+      },
+      {
+        id: 12,
+        text: 'Which one of the following sentences best summarizes paragraph 2?',
+        options: [
+          'Soil degradation is a serious problem threatening people in developed countries.',
+          'The world is losing its precious agricultural land at an alarming rate.',
+          'The amount of cultivable land is decreasing while population remains constant.',
+          'The amount of cultivable land and population growth are inversely proportional.'
+        ],
+        correctAnswer: 1,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1',
+        explanation: 'Paragraph 2 highlights the rapid loss of agricultural land and the increasing pressure on food production systems.'
+      },
+      {
+        id: 13,
+        text: 'What does the phrase "the ink-blot spread of cities" (paragraph 3) mean?',
+        options: [
+          'Spread of cities along the main roads.',
+          'Establishment of mega cities on farmlands.',
+          'Establishment of a city to be followed by another in short distance.',
+          'Establishment and spread of cities into the farmland.'
+        ],
+        correctAnswer: 3,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1',
+        explanation: 'The phrase refers to how cities are expanding into agricultural lands, similar to how ink spreads on paper.'
+      },
+      {
+        id: 14,
+        text: 'How many African countries have specifically been mentioned as those in danger of desertification?',
+        options: [
+          'Three',
+          'Two',
+          'Four',
+          'Five'
+        ],
+        correctAnswer: 1,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1'
+      },
+      {
+        id: 15,
+        text: 'What is the main idea conveyed in paragraph 1?',
+        options: [
+          'Africa has been more seriously affected by desert than Latin America.',
+          'The areas outside the rainy equatorial belt have not been affected by deserts.',
+          'FAO and UNESCO shown a serious concern about desertification problems.',
+          'Deserts affected developing countries more than they did the developed ones.'
+        ],
+        correctAnswer: 2,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1',
+      },
+      {
+        id: 16,
+        text: 'According to paragraph 2, how much of our soil is getting out of use every six months?',
+        options: [
+          '2.50 billions tons',
+          '1.25 billion tons',
+          '1.50 billion tons',
+          '1.75 billion tons'
+        ],
+        correctAnswer: 1,
+        section: 'Reading Comprehension',
+        passageId: 'passage-1',
+      },
+      
+      // Section Three: Reading Comprehension (17-23)
+      // Full passage for questions 17-23
+      {
+        id: 'passage-2',
+        type: 'passage',
+        text: 'PASSAGE II\nUNITED NATIONS- Nearly 60 million people have been driven from their homes by war and persecution, an unprecedented global exodus that has burdened fragile counties with waves of new comers and littered deserts and seas with the bodies of those who died trying to reach safety. The new figures, released recently by the United Nations refugee agency, paint a staggering picture of a world where new conflicts are erupting and old ones are refusing to subside, driving up the total number of displaced people to a record 59.5 million by the end of 2014, the most recent year tailed.\n\nHalf of the displaced are children. Nearly 14 million people were newly displaced in 2014, according to the annual report by the Office of the United Nations High Commissioner for Refugees. in other words, tens of thousands of people were forced to leave their homes every day and "seek protection elsewhere" last year, the report found. Tens of millions of others fled in previous years and remain stuck, sometimes for decades, unable to go home or find a permanent new one, according to the refugee agency. They include the more than 2.5 million displaced in the Darfur region of Sudan, and the 1.5 million Afghans still living in Pakistan.\n\nWhen refugees flee their own countries, most of them wind up in the world\'s less-developed nations, with Turkey, Iran and Pakistan hosting the largest numbers. One in four refugees now finds shelter in the world\'s poorest countries, with Ethiopia and Kenya taking many more refugees than, say, Britain and France. As the report states, "the global distribution of refugees remains heavily skewed away from wealthier nations and towards the less wealthy." Even so, there has been a sharp backlash in European capitals against the waves of people coming across the Mediterranean Sea, including many who are fleeing conflict and repression in countries like Syria and Eritrea. For now, the European Union has shelved its plans to get approval from the lawless Libya and to destroy the ships they use to bring migrants across the sea. Instead, the European Union is scheduled to meet on Monday to discuss whether it will start military operations in the international waters of the Mediterranean Sea, for which it does not need the Council\'s blessings.\n\nEuropean Union leaders are still squabbling with one another over how to spilt up at least 40,000 asylum seekers across their 28 member states. And they have stepped up search and rescue operations after intense public pressure stemming from a sharp increase in the deaths of migrants crossing the Mediterranean this year. Australia has felt no such compunction. Its prime minster, Tony Abbot, has pledged to turn around migrant boats before they enter Australian territorial waters, including those with minority Rohingyas fleeing persecution in Myanmar. His administration faces scrutiny over allegations that it paid smugglers to turn a boat back to Indonesia after it was intercepted on the high seas.\n\n"For an age of unprecedented mass displacement, we need an unprecedented humanitarian response and a renewed global commitment to tolerance and protection for people fleeing conflict and persecution," Antonio Guterres, the high commissioner for refugees, said in a statement accompanying the annual report.\n\nAmnesty International, in a report issued this week, accused governments and smugglers alike of pursuing "selfish political interest instead of showing roughly 70,00 refugees each year, though its plans to admit 2,000 Syrian refugees this year have drawn scrutiny from Republican lawmakers who worry that some among them might be terrorists. The war in Syria is the largest source of displacement. By the end of 2014, 7.6 million Syrians ere displaced within the country itself, and nearly another 3.9 million were refugees living outside the war-torn nation.\n\nSource: United Nations English Language Programme',
+        section: 'Reading Comprehension',
+        isPassage: true
+      },
+      {
+        id: 17,
+        text: 'Why is the United States reluctant to admit Syrian refugees?',
+        options: [
+          'Because Republican lawmakers do not trust the refugees.',
+          'Because it runs its own political interests.',
+          'Because there are terrorists mixed with the refugees.',
+          'Because it is possible for the refugees to settle within Syria.'
+        ],
+        correctAnswer: 0,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 18,
+        text: 'According to paragraph 2, which one of the following sentences is NOT true?',
+        options: [
+          'Compared to the adolescent or the elderly emigrants, children are larger in number.',
+          'Newly dislocated people in 2014 make up nearly a quarter of the total number of displaced people.',
+          'Relatively a significant number of those who flee their countries fail to find permanent homes.',
+          'The 1.5 million Afghans living in Pakistan do not seem to want to go back home.'
+        ],
+        correctAnswer: 3,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 19,
+        text: 'What is the paradox that one can see in paragraph 3?',
+        options: [
+          'Wealthy countries take more refugees than the poor ones.',
+          'Wealthy countries were supposed to take more refugees than the poor ones.',
+          'Poor countries take more refugees than the wealthy ones.',
+          'People who flee their own countries eventually land in less-developed nations.'
+        ],
+        correctAnswer: 2,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 20,
+        text: 'Which countries in paragraph 3 are among those that should take the blame with regard to creating refugees?',
+        options: [
+          'Britain and France',
+          'Ethiopia and Kenya',
+          'Turkey, Iran and Pakistan',
+          'Syria and Eritrea'
+        ],
+        correctAnswer: 3,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 21,
+        text: 'What made the European Union intensify its search and rescue operations?',
+        options: [
+          'The sharp increase in death of migrants',
+          'The increasing number of asylum seekers',
+          'The serious demand put to them by the public',
+          'Their intention to send back new arrivals'
+        ],
+        correctAnswer: 2,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 22,
+        text: 'What does the phrase "fragile countries" (paragraph 1) refer to?',
+        options: [
+          'Countries that had to host emigrants from other places.',
+          'Countries located around deserts and seas.',
+          'Countries from where people are persecuted for some reason',
+          'Countries from where people leave their homes because of war.'
+        ],
+        correctAnswer: 0,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      {
+        id: 23,
+        text: 'Which one of the following sentences reflects Antonio Guterres\' view towards refugees?',
+        options: [
+          'People are being persecuted at an unprecedented rate.',
+          'People who flee conflict and persecution need to be more tolerant.',
+          'We need to be aware that there is an unprecedented humanitarian response today.',
+          'The world should be more tolerant to those displaced from their homes.'
+        ],
+        correctAnswer: 3,
+        section: 'Reading Comprehension',
+        passageId: 'passage-2'
+      },
+      // Section Four: Vocabulary (24-40)
+      {
+        id: 24,
+        text: 'I know she is lying, but it is hard to __________ her story.',
+        options: [
+          'disprove',
+          'disclose',
+          'dismantle',
+          'discourage'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 25,
+        text: 'I\'m meeting Sara at three o\'clock to discuss our class schedule. After that, I\'m playing chess. Oh, __________, I may want something to eat when I get home.',
+        options: [
+          'whereas',
+          'after all',
+          'by the way',
+          'besides'
+        ],
+        correctAnswer: 2,
+        section: 'Vocabulary'
+      },
+      {
+        id: 26,
+        text: 'No translation; students need to learn to __________ what words mean from the way they are used.',
+        options: [
+          'reduce',
+          'deduce',
+          'induce',
+          'introduce'
+        ],
+        correctAnswer: 1,
+        section: 'Vocabulary'
+      },
+      {
+        id: 27,
+        text: 'Physical labor can exhaust the body; __________, excessive reading can reduce mental power.',
+        options: [
+          'regrettably',
+          'incidentally',
+          'sadly',
+          'equally'
+        ],
+        correctAnswer: 3,
+        section: 'Vocabulary'
+      },
+      {
+        id: 28,
+        text: 'The ceremony did not take long; I __________ the statue soon after the coordinator\'s brief speech.',
+        options: [
+          'unwrapped',
+          'unveiled',
+          'uncovered',
+          'unlocked'
+        ],
+        correctAnswer: 1,
+        section: 'Vocabulary'
+      },
+      {
+        id: 29,
+        text: 'The government has taken measures to __________ the spread of the disease.',
+        options: [
+          'contain',
+          'retain',
+          'obtain',
+          'attain'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 30,
+        text: 'Her __________ to the problem was quite different from what we had expected.',
+        options: [
+          'approach',
+          'reproach',
+          'disapprove',
+          'improve'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 31,
+        text: 'The company has __________ a new product that is expected to be very successful.',
+        options: [
+          'launched',
+          'lunched',
+          'enhanced',
+          'enlarged'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 32,
+        text: 'The __________ of the novel is quite complex, with many unexpected twists and turns.',
+        options: [
+          'plot',
+          'plight',
+          'plate',
+          'plait'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 33,
+        text: 'He was __________ of the fact that he had made a serious mistake.',
+        options: [
+          'unaware',
+          'unawares',
+          'aware',
+          'awareness'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 34,
+        text: 'The teacher asked the students to __________ their answers before submitting their papers.',
+        options: [
+          'review',
+          'revise',
+          'revisit',
+          'revoke'
+        ],
+        correctAnswer: 1,
+        section: 'Vocabulary'
+      },
+      {
+        id: 35,
+        text: 'The company has __________ its workforce by 10% due to financial difficulties.',
+        options: [
+          'decreased',
+          'reduced',
+          'lessened',
+          'lowered'
+        ],
+        correctAnswer: 1,
+        section: 'Vocabulary'
+      },
+      {
+        id: 36,
+        text: 'The government has introduced new measures to __________ economic growth.',
+        options: [
+          'stimulate',
+          'simulate',
+          'stipulate',
+          'stagnate'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 37,
+        text: 'The __________ of the novel is set in a small village in Ethiopia.',
+        options: [
+          'setting',
+          'scene',
+          'scenery',
+          'sight'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 38,
+        text: 'The company has been accused of __________ its employees by paying them very low wages.',
+        options: [
+          'exploiting',
+          'exploring',
+          'exporting',
+          'expelling'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 39,
+        text: 'The government has promised to __________ the living standards of its citizens.',
+        options: [
+          'raise',
+          'rise',
+          'arise',
+          'arouse'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      {
+        id: 40,
+        text: 'The company has __________ a new marketing strategy to attract more customers.',
+        options: [
+          'adopted',
+          'adapted',
+          'adept',
+          'adorned'
+        ],
+        correctAnswer: 0,
+        section: 'Vocabulary'
+      },
+      // Section Five: Grammar (41-70)
+      {
+        id: 41,
+        text: 'If I __________ you, I would take the job.',
+        options: [
+          'am',
+          'was',
+          'were',
+          'have been'
+        ],
+        correctAnswer: 2,
+        section: 'Grammar'
+      },
+      {
+        id: 42,
+        text: 'By next year, she __________ for the company for a decade.',
+        options: [
+          'will work',
+          'will have worked',
+          'has worked',
+          'works'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 43,
+        text: 'The committee __________ divided in their opinions about the new policy.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 44,
+        text: 'Neither the manager nor the employees __________ happy with the new schedule.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 45,
+        text: 'She is one of those people who __________ always late.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 46,
+        text: 'The number of students in the class __________ increased this semester.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 47,
+        text: 'Each of the students __________ a different approach to solving the problem.',
+        options: [
+          'has',
+          'have',
+          'is having',
+          'are having'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 48,
+        text: 'The jury __________ reached its decision.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 49,
+        text: 'The news __________ quite shocking to everyone in the room.',
+        options: [
+          'was',
+          'were',
+          'has',
+          'have'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 50,
+        text: 'Mathematics __________ my favorite subject in school.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 51,
+        text: 'The police __________ investigating the crime scene.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 52,
+        text: 'Ten dollars __________ not enough to buy that book.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 53,
+        text: 'The team __________ working hard to win the championship.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 54,
+        text: 'The government __________ announced new tax reforms.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 55,
+        text: 'The majority of the students __________ passed the exam.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 56,
+        text: 'The United States __________ a powerful country.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 57,
+        text: 'The committee __________ not agree on the new policy.',
+        options: [
+          'does',
+          'do',
+          'is',
+          'are'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 58,
+        text: 'The staff __________ very helpful in this store.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 59,
+        text: 'The pair of shoes __________ on sale.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 60,
+        text: 'The scissors __________ very sharp.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 61,
+        text: 'The news about the accident __________ shocking.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 62,
+        text: 'The police __________ looking for the suspect.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 63,
+        text: 'The furniture in this room __________ very old.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 64,
+        text: 'The information you provided __________ very useful.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 65,
+        text: 'The luggage __________ been loaded onto the plane.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 66,
+        text: 'The equipment __________ very expensive.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 67,
+        text: 'The knowledge and skills I gained __________ very useful in my career.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 68,
+        text: 'The number of students in the class __________ increased this year.',
+        options: [
+          'has',
+          'have',
+          'is',
+          'are'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      {
+        id: 69,
+        text: 'A number of students __________ absent today.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 1,
+        section: 'Grammar'
+      },
+      {
+        id: 70,
+        text: 'The committee __________ meeting tomorrow to discuss the budget.',
+        options: [
+          'is',
+          'are',
+          'was',
+          'were'
+        ],
+        correctAnswer: 0,
+        section: 'Grammar'
+      },
+      // Section Six: Communication (71-98)
+      {
+        id: 71,
+        text: 'A: What would you like to drink?\nB: __________',
+        options: [
+          'I like coffee.',
+          'I have a cat.',
+          'I\'d like a cup of tea, please.',
+          'I don\'t know.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 72,
+        text: 'A: How often do you go to the gym?\nB: __________',
+        options: [
+          'Yes, I do.',
+          'No, I don\'t like it.',
+          'Three times a week.',
+          'At 5 o\'clock.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 73,
+        text: 'Konjit: Do you like pizza?\nYou: __________',
+        options: [
+          'It is easy.',
+          'I don\'t like pizza.',
+          'Yes, I can.',
+          'No, I don\'t.'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 74,
+        text: 'Husband: There is someone at the door.\nWife: Wait, you had better put your shoes __________.',
+        options: [
+          'On after you open it.',
+          'On before you open it.',
+          'Off before you open it.',
+          'Off after you open it.'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 75,
+        text: 'Daniel: I got the job I told you about.\nYou: __________',
+        options: [
+          'Congratulations!',
+          'I don\'t care.',
+          'That\'s good news.',
+          'Jobs are not easy to get these days.'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 76,
+        text: 'Tamrat: Do you know who is standing over there?\nLema: __________',
+        options: [
+          'Who is he talking to?',
+          'No, I don\'t.',
+          'He is very tall, isn\'t he?',
+          'I met him yesterday.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 77,
+        text: 'Friend: __________.\nYou: You should loosen your belt.',
+        options: [
+          'I have got stomachache',
+          'I ate too much',
+          'I am terribly hungry',
+          'I am starved to death'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 78,
+        text: 'Receptionist: I get mad when someone rings me up late at night.\nGuest: __________',
+        options: [
+          'Yes, that can be annoying, but you should try to let it upset you.',
+          'Yes, that can be annoying, but you should try not to let it upset you.',
+          'No, that can be annoying, but you should try to let it upset you.',
+          'No, that cannot be annoying, but you should try to let it upset you.'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 79,
+        text: 'Amir: They took my money, my credit cards, my passport, everything.\nDano: __________',
+        options: [
+          'You should see a doctor.',
+          'Why are you here now?',
+          'Oh dear! What are you going to do now?',
+          'Why not? Go to the police.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 80,
+        text: 'You: How can I get to the nearest pharmacy, please?\nAhmed: __________',
+        options: [
+          'Why do you ask?',
+          'How long have you had this headache?',
+          'Do you want to see a doctor?',
+          'Go straight and turn right.'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 81,
+        text: 'Nardos: I heard you were the only person to get the job. Well done!\nGirma: __________',
+        options: [
+          'I knew I did well.',
+          'Thank you.',
+          'Why expected I would not?',
+          'Sure, I did'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 82,
+        text: 'Fetie: The answer is the letter \'e\'. Now prove that.\nKassech: But this is illogical. In a week once, in a year twice!\nFetie: Not all riddles follow logic for their solution. Some encourage you to look for other means.\nKassech: I cannot solve your riddle.\nFetie: __________',
+        options: [
+          'What\'s logic?',
+          'The letter \'e\'. Now prove that.',
+          'My father used logic in all his activities.',
+          'Sometimes it is possible.'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 83,
+        text: 'Fasil: Are you scared of girls?\nIbrahim: Yes, Fasil. __________',
+        options: [
+          'There are many things to say',
+          'I know what to do.',
+          'I have four sisters.',
+          'I can\'t think of anything to say.'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 84,
+        text: 'Mother: May I ask you who can take part in your \'protect yourself\' program?\nDaughter: Anyone who wants, but __________',
+        options: [
+          'mostly it is young women',
+          'rarely it is young women',
+          'interested individuals',
+          'you aren\'t a girl'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 85,
+        text: 'Friend: Your cousin has just told me he\'s getting married next week. Are you very pleased?\nYou: __________, but he could have told me earlier.',
+        options: [
+          'No, actually',
+          'I\'m not',
+          'I\'m absolutely delighted',
+          'Where is the wedding to be held'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 86,
+        text: 'Father: __________\nSon: But it\'s good for health.',
+        options: [
+          'Physical exercise is tiring.',
+          'Physical exercise is good.',
+          'Do you like physical exercise?',
+          'Is physical exercise good?'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 87,
+        text: 'Dandir: Is Addis Ababa getting more and more dangerous? People say there are gangs everywhere.\nGemechu: No, no. __________.',
+        options: [
+          'This kind of behavior simply won\'t be tolerated',
+          'It\'s simply a misunderstanding',
+          'That\'s simply the best the city can afford',
+          'It\'s simply an exaggeration'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 88,
+        text: 'Son: Oh no! __________\nFather: I will bring you a mop.',
+        options: [
+          'Has the bathroom flooded?',
+          'The bathroom has flooded.',
+          'What has happened?',
+          'The window is open.'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 89,
+        text: 'Daughter: __________\nMother: You should go on a diet.',
+        options: [
+          'Tell me the best restaurant here.',
+          'I have no appetite.',
+          'I am losing weight.',
+          'I am putting on a lot of weight.'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 90,
+        text: 'Agaredech: Global warming and extreme pollution are interconnected.\nBehailu: But some argue that the earth is getting aged.\nAgaredech: While this may have some truth, pollution may have hastened the process.\nBehailu: Certainly, but there are global efforts to curb pollution.\nAgaredech: __________',
+        options: [
+          'There is no pollution in backward countries.',
+          'Global warming is inevitable.',
+          'True. But the link between the two should be unequivocally established.',
+          'Environmentalists tried to influence big international organizations.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 91,
+        text: 'Guest: The kitchen handle has come off.\nYou: Don\'t worry. __________.',
+        options: [
+          'It often does',
+          'It has never been like that',
+          'You will buy a replacement',
+          'It\'s none of your business'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 92,
+        text: 'Mother: Don\'t you ever run out into the road like that. You could have been knocked over.\nDaughter: __________',
+        options: [
+          'How come that this ever happens to me?',
+          'Have I ever been knocked over?',
+          'Oh no! Thank you, mom.',
+          'What? You could have told me that earlier.'
+        ],
+        correctAnswer: 2,
+        section: 'Communication'
+      },
+      {
+        id: 93,
+        text: 'Sara: I have such a bad headache that I can\'t even open my eyes.\nHana: __________',
+        options: [
+          'Where is the nearest clinic?',
+          'Do you often have it?',
+          'I hate headaches.',
+          'Perhaps you need some break.'
+        ],
+        correctAnswer: 3,
+        section: 'Communication'
+      },
+      {
+        id: 94,
+        text: 'Teacher: You did not attend class yesterday, did you?\nStudent: __________.',
+        options: [
+          'No, you didn\'t',
+          'No, I didn\'t',
+          'No, I did',
+          'No, you did'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 95,
+        text: 'Student 1: Virus attacks are common and the spread of anti-virus might tip the balance towards treating them seriously.\nStudent 2: I cannot follow you. Can you please paraphrase it?\nStudent 1: __________',
+        options: [
+          'In other words, attention would be given to arresting the effects of the virus.',
+          'How does the virus steal your documents?',
+          'There is always an antivirus available to protect your computer.',
+          'Wanna Cry is a virus that steals documents in your computer.'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 96,
+        text: 'Deboch: National exams should not continue.\nTeklu: Probably, you may be right.\nDeboch: Since we cannot do away with exams, regions may need to set their own.\nTeklu: This may be a good idea, but there is the issue of standard.\nDeboch: The Federal Ministry may set the basic standards.\nTeklu: __________',
+        options: [
+          'I hate exams.',
+          'Well, I may agree with you.',
+          'Exams set standards.',
+          'There are ways and methods.'
+        ],
+        correctAnswer: 1,
+        section: 'Communication'
+      },
+      {
+        id: 97,
+        text: 'Guest: What a room service! There is no towel in the bathroom. Could you please bring me one?\nHost: Yes, madam. I will bring one soon.\nGuest: __________. The shower does not function. Could you please bring me one?\nHost: We\'re sorry, madam. The plumber is on leave. If you don\'t mind, could you use the common shower next door?',
+        options: [
+          'Alas!',
+          'Terrible! I don\'t understand.',
+          'Where\'s the plumber?',
+          'Oh my God! What a curse.'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      {
+        id: 98,
+        text: 'Gennet: Our class is planning for a picnic next week. Will you join us?\nChaltu: Well, I don\'t know. I have to get permission from my parents.\nGennet: But try hard. Don\'t miss it.\nChaltu: __________',
+        options: [
+          'I may come.',
+          'I don\'t miss it.',
+          'My parents like it very much.',
+          'I miss it.'
+        ],
+        correctAnswer: 0,
+        section: 'Communication'
+      },
+      // Section Seven: Writing (99-120)
+      {
+        id: 99,
+        text: 'Which one of the following sentences has correct capitalization?',
+        options: [
+          'The language I wanted to learn was arabic, not French.',
+          'The language I wanted to learn was arabic, not french.',
+          'The language I wanted to learn was Arabic, not french.',
+          'The language I wanted to learn was Arabic, not French.'
+        ],
+        correctAnswer: 3,
+        section: 'Writing'
+      },
+      {
+        id: 100,
+        text: '"In the meantime, it is necessary to find other ways of disciplining drug offenders."\n\nThis line was taken from the recommendation section of a survey on drug conviction. Which of the following is true about the recommendation?',
+        options: [
+          'This is the major point recommended in the study.',
+          'It is one of the two recommendations in the study.',
+          'It is a recommendation forwarded until better actions can be taken.',
+          'This is recommended to take place immediately.'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 101,
+        text: '"Of late, drugs have changed American penal practice."\n\nThis line was taken from the introduction section of a study carried out on drug offenders in America. Which of the following sentences should come next to the quoted sentence?',
+        options: [
+          'In 1987, for example, only about 8 percent of state-prison inmates were serving time on drug convictions.',
+          'Nations with different penal practices have experienced different crime rates.',
+          'People were rightly fearful of what cocaine was doing to their children when they demanded action.',
+          'It needs to be pointed out that there are no easy prison solutions to drug convictions.'
+        ],
+        correctAnswer: 0,
+        section: 'Writing'
+      },
+      {
+        id: 102,
+        text: '"You may not need to write your name." Where do you find this statement in a survey study?',
+        options: [
+          'It can be one of the items in the questionnaire.',
+          'It is taken from respondents\' personal information.',
+          'It is a reminder written in questionnaire covering letter.',
+          'It is taken from a \'Thank you\' letter written to respondents.'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 103,
+        text: '"Dressed purposely to confuse her friends in the first week of school, Samrawit wears clothes she would normally never wear. With her new haircut, she really looks like a completely different person." These sentences are taken from a piece of writing that is most likely _______________.',
+        options: [
+          'Argumentative',
+          'Description',
+          'Narrative',
+          'Expository'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 104,
+        text: 'Which one of the following is taken from a formal letter of application?',
+        options: [
+          'Thank you for your letter dated 5th April which I received this morning.',
+          'I would be grateful if you could confirm your reservation in writing.',
+          'I am writing in response to the position of IT assistant advertised in the Monitor.',
+          'Sadly, I am not available on the date you suggested. May I suggest the 8th of April.'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 105,
+        text: 'Which of the following contains errors in capitalization, mechanics and punctuation?',
+        options: [
+          'The fire, although it had been burning for several hours, was still blazing fiercely.',
+          'Peter, my elder brother received medals for his contributions Astronomy, chemistry and Mathematics.',
+          'You should, indeed you must, report the matter to the police.',
+          '"When the judge said, \'Not guilty,\' I could have hugged him."'
+        ],
+        correctAnswer: 1,
+        section: 'Writing'
+      },
+      {
+        id: 106,
+        text: 'Which one of the following is taken from an informal letter?',
+        options: [
+          'I would like to apply for the position of assistant secretary.',
+          'I enclose my curriculum vitae for your attention.',
+          'I am writing to complain about the following damages.',
+          'Wish me good luck my math exam.'
+        ],
+        correctAnswer: 3,
+        section: 'Writing'
+      },
+      {
+        id: 107,
+        text: '"... He couldn\'t understand where he had gone wrong. When he had got out that morning, the weather had been fine..." The preceding text is possibly taken from a(an) _______________ writing.',
+        options: [
+          'Narrative',
+          'Expository',
+          'Descriptive',
+          'Argumentative'
+        ],
+        correctAnswer: 0,
+        section: 'Writing'
+      },
+      {
+        id: 108,
+        text: 'Which one of the following is correctly punctuated?',
+        options: [
+          'I have never been to England; in fact; I have never been outside this country.',
+          'I have never been to England; in fact, I have never been outside this country.',
+          'I have never been to England; in fact I have never been outside this country.',
+          'I have never been to England, in fact, I have never been outside this country.'
+        ],
+        correctAnswer: 1,
+        section: 'Writing'
+      },
+      {
+        id: 109,
+        text: 'Which one of the following is correctly punctuated?',
+        options: [
+          'I have tried to sing dozens of times, she says, "but I can\'t."',
+          '"I have tried to sing dozens of times," she says "but I can\'t."',
+          '"I have tried to sing dozens of times," she says, "but I can\'t."',
+          '"I have tried to sing dozens of times" she says, "but I can\'t."'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 110,
+        text: '"You responses will be held confidentially." Which of the following might be a good reason for writing the preceding sentence in the first few lines of a survey questionnaire?',
+        options: [
+          'Appreciating respondents\' participation',
+          'Increasing response rate',
+          'Limiting sample size',
+          'Requesting for permission'
+        ],
+        correctAnswer: 1,
+        section: 'Writing'
+      },
+      {
+        id: 111,
+        text: 'Which one of the following is correctly punctuated?',
+        options: [
+          'The meeting ended at dawn; nothing had been decided.',
+          'The meeting ended at dawn, nothing had been decided.',
+          'The meeting ended at dawn nothing had been decided.',
+          'The meeting ended at dawn. nothing had been decided.'
+        ],
+        correctAnswer: 0,
+        section: 'Writing'
+      },
+      {
+        id: 112,
+        text: 'Which one of the following sentences has correct capitalization?',
+        options: [
+          'Sara and Hana first met at a school called learning to Learn.',
+          'Sara and Hana first met at a school called Learning to Learn.',
+          'Sara and hana first met at a school called Learning to Learn.',
+          'Sara and Hana first met at a School called Learning to Learn.'
+        ],
+        correctAnswer: 1,
+        section: 'Writing'
+      },
+      {
+        id: 113,
+        text: 'In his eyes, I could see his desire to redeem himself, a need to hit me more times than I hit him, just for the sake of it." This text is taken from a piece of writing that is most _______________.',
+        options: [
+          'Narrative',
+          'Descriptive',
+          'Argumentative',
+          'Expository'
+        ],
+        correctAnswer: 0,
+        section: 'Writing'
+      },
+      {
+        id: 114,
+        text: '"My coat was on the seat next to me. I took my passport out of my pocket and put it in my bag in the luggage rack." These lines are taken from a piece of writing that is most likely __________.',
+        options: [
+          'Argumentative',
+          'Descriptive',
+          'Expository',
+          'Narrative'
+        ],
+        correctAnswer: 3,
+        section: 'Writing'
+      },
+      {
+        id: 115,
+        text: 'She crosses the road, trying to figure out how to navigate the town she has been away from for some fifteen years. This text is taken from a piece of writing that is most likely _______________.',
+        options: [
+          'Expository',
+          'Narrative',
+          'Argumentative',
+          'Descriptive'
+        ],
+        correctAnswer: 1,
+        section: 'Writing'
+      },
+      {
+        id: 116,
+        text: 'How many instances of use of L1 can be observed from the data reported in the table?',
+        options: [
+          '1',
+          '2',
+          '3',
+          '4'
+        ],
+        correctAnswer: 1,
+        section: 'Writing',
+        passage: 'A survey was carried out to determine first year university students\' essay writing strategies. The survey, in particular, focused on the students\' language use strategies. Below is the summary of the data obtained in response to the questions asked.\n\nStrategies | Percentages\n-----------|------------\nBorrow phrases from books | 15\nWrite in the local language (L1) & translate | 30\nWrite directly in English | 25\nOutline in L1 and write in English | 25\nOther strategies | 5'
+      },
+      {
+        id: 117,
+        text: 'From the data in the above table, what proportion of first year university students considered in the survey wrote their essays directly in English?',
+        options: [
+          'One quarter',
+          'Three-fourth',
+          'Two-thirds',
+          'Half'
+        ],
+        correctAnswer: 0,
+        section: 'Writing',
+        passage: 'The table shows that 25% of students write directly in English.'
+      },
+      {
+        id: 118,
+        text: '"Until future study finds a better solution, English teachers should work on how students can be helped to develop their outlines in English into essays." Which section of the above survey is the most likely appropriate place for the preceding statement?',
+        options: [
+          'Conclusion',
+          'Methodology',
+          'Data analysis',
+          'Recommendation'
+        ],
+        correctAnswer: 3,
+        section: 'Writing'
+      },
+      {
+        id: 119,
+        text: 'Which of the following is the likely title of the survey from which the data displayed in the above table were extracted?',
+        options: [
+          'A survey of essays written by first year university students.',
+          'Essay writing strategies as surveyed by first year university students.',
+          'A survey of first year university students\' essay writing strategies.',
+          'Essay writing as surveyed by strategies of first year university students.'
+        ],
+        correctAnswer: 2,
+        section: 'Writing'
+      },
+      {
+        id: 120,
+        text: 'What is the most useful instrument used to gather the survey data displayed in the table?',
+        options: [
+          'Interview',
+          'Questionnaire',
+          'Classroom Observation',
+          'Observation'
+        ],
+        correctAnswer: 1,
+        section: 'Writing',
+        explanation: 'A questionnaire is the most practical and efficient way to gather data about students\' writing strategies from a large group.'
+      }
+    ]
+  },
+  chemistryExam2018,
+  economicsExam2018,
+  physicsExam,
+  geographyExam2018,
+  historyExam2018,
+  satExam2018,
+  mathExam2018,
+  biologyExam2018,
+  eueeEnglish2010,
+  euee2013,
+  satEuee2013,
+  eueeEnglishNatural2016,
+  chemOnlineTest,
+  chemistryGrade12Model1,
+  eueeSat,
+  geographyModel2nd2026,
+  satExamNew
+];

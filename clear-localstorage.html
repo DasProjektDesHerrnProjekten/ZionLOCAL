@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear LocalStorage</title>
+</head>
+<body>
+    <h1>Clear LocalStorage for Offline Mode</h1>
+    <p>Click the button below to clear all localStorage data.</p>
+    <button onclick="clearAll()">Clear All LocalStorage</button>
+    <p id="result"></p>
+
+    <script>
+        function clearAll() {
+            localStorage.clear();
+            document.getElementById('result').textContent = '✅ LocalStorage cleared! You can now reload the application.';
+            console.log('LocalStorage cleared');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "id": "euee-2013",
+  "title": "2013 EUEE Examination",
+  "subject": "General",
+  "duration": 120,
+  "totalQuestions": 0,
+  "totalMarks": 0,
+  "description": "2013 EUEE Examination - Add description here",
+  "scheduledDate": "2026-09-26",
+  "status": "active",
+  "stream": "both",
+  "password": "EUEE2013",
+  "questions": []
+}

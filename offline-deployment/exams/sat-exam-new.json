@@ -1,0 +1,14 @@
+{
+  "id": "sat-exam-new",
+  "title": "SAT Examination",
+  "subject": "SAT",
+  "duration": 60,
+  "totalQuestions": 0,
+  "totalMarks": 0,
+  "description": "SAT Examination - Add description here",
+  "scheduledDate": "2026-09-26",
+  "status": "active",
+  "stream": "both",
+  "password": "SATNEW",
+  "questions": []
+}

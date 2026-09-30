@@ -1,0 +1,14 @@
+{
+  "id": "euee-sat",
+  "title": "EUEE SAT Examination",
+  "subject": "SAT",
+  "duration": 60,
+  "totalQuestions": 0,
+  "totalMarks": 0,
+  "description": "EUEE SAT Examination - Add description here",
+  "scheduledDate": "2026-09-26",
+  "status": "active",
+  "stream": "both",
+  "password": "EUEESAT",
+  "questions": []
+}

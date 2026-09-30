@@ -1,0 +1,14 @@
+{
+  "id": "chemistry-grade12-model1",
+  "title": "Chemistry Grade 12 Model Exam-1",
+  "subject": "Chemistry",
+  "duration": 120,
+  "totalQuestions": 0,
+  "totalMarks": 0,
+  "description": "Chemistry Grade 12 Model Exam-1 - Add description here",
+  "scheduledDate": "2026-09-26",
+  "status": "active",
+  "stream": "natural",
+  "password": "CHEMMODEL1",
+  "questions": []
+}

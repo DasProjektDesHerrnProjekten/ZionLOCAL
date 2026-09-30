@@ -1,0 +1,616 @@
+import { Exam } from './exams';
+
+export const biologyExam2018: Exam = {
+  id: 'biology-2018-grade12',
+  title: 'MESKAYE ONLINE MODEL BIOLOGY-1',
+  subject: 'Biology',
+  duration: 120,
+  totalQuestions: 100,
+  description: 'Biology Model Exam for Grade 12',
+  scheduledDate: '2026-04-01',
+  status: 'ongoing',
+  stream: 'natural',
+  password: 'BIO2026',
+  questions: [
+    {
+      id: 1,
+      text: 'Which of the following steps in the scientific method comes following observation?',
+      options: ['Hypothesis', 'Ask question', 'Theory', 'Experiment'],
+      correctAnswer: 1
+    },
+    {
+      id: 2,
+      text: 'A laboratory equipment used to culturing microorganisms is known as ___________.',
+      options: ['Microscope', 'flask', 'beaker', 'Petri dish'],
+      correctAnswer: 3
+    },
+    {
+      id: 3,
+      text: 'How do you calculate the magnification power of a magnified object?',
+      options: ['Image size x actual size.', 'Image size ÷ actual size', 'Actual size ÷ image size.', 'Actual size x image size.'],
+      correctAnswer: 1
+    },
+    {
+      id: 4,
+      text: 'The hypothesis that life originated from non-living matter through a gradual chemical process is called:',
+      options: ['Biogenesis', 'Abiogenesis', 'Spontaneous generation', 'Intelligent design'],
+      correctAnswer: 1
+    },
+    {
+      id: 5,
+      text: 'Which one of the following is true about virus?',
+      options: ['Viruses are able to carry out the whole activities of living organisms.', 'Viruses possess both DNA and RNA as genetic materials.', 'Viruses need their living hosts to reproduces.', 'Viruses are living organisms and have long life expectancy.'],
+      correctAnswer: 2
+    },
+    {
+      id: 6,
+      text: 'What is biotechnology primarily concerned with?',
+      options: ['The study of inorganic substances', 'The use of biological organisms and systems for industrial processes', 'The analysis of celestial bodies', 'The development of artificial intelligence'],
+      correctAnswer: 1
+    },
+    {
+      id: 7,
+      text: 'Which application of biotechnology involves the production of insulin?',
+      options: ['Recombinant DNA technology', 'Cloning', 'Mutagenesis', 'Gene mapping'],
+      correctAnswer: 0
+    },
+    {
+      id: 8,
+      text: 'Which of the following is a method used in genetic engineering?',
+      options: ['Cross-breeding', 'Gel electrophoresis', 'Cloning', 'Both B and C'],
+      correctAnswer: 3
+    },
+    {
+      id: 9,
+      text: 'What is a biopesticide?',
+      options: ['A pesticide made from synthetic chemicals', 'A biological agent used to control pests', 'A type of herbicide', 'A fertilizer that enhances plant growth'],
+      correctAnswer: 1
+    },
+    {
+      id: 10,
+      text: 'Which of the following is a benefit of genetically modified organisms (GMOs)?',
+      options: ['Increased resistance to pests.', 'Higher nutritional value', 'Reduced agricultural cost', 'All of the above'],
+      correctAnswer: 3
+    },
+    {
+      id: 11,
+      text: 'What is the primary application of recombinant DNA technology?',
+      options: ['Cloning animals', 'Producing insulin', 'Gene therapy', 'All of the above'],
+      correctAnswer: 3
+    },
+    {
+      id: 12,
+      text: 'Biotechnology is employed in environmental applications primarily for:',
+      options: ['Producing food', 'Bioremediation of polluted environments', 'Gene therapy', 'Developing vaccin'],
+      correctAnswer: 1
+    },
+    {
+      id: 13,
+      text: 'What technique is used to amplify DNA sequences for further analysis?',
+      options: ['Gel electrophoresis', 'Polymerase chain reaction (PCR)', 'Southern blotting', 'DNA sequencing'],
+      correctAnswer: 1
+    },
+    {
+      id: 14,
+      text: 'Which of the following is a common use of genetically modified crops?',
+      options: ['Increased nutritional value', 'Pest resistance', 'Herbicide tolerance', 'All of the above'],
+      correctAnswer: 3
+    },
+    {
+      id: 15,
+      text: 'Which of the following is NOT a benefit of using biotechnology in medicine?',
+      options: ['Production of vaccines', 'Genetic modification of crops', 'Human insulin production', 'Diagnosis of genetic disorders'],
+      correctAnswer: 1
+    },
+    {
+      id: 16,
+      text: 'Biotechnology is employed in environmental applications primarily for:',
+      options: ['Producing food', 'Bioremediation of polluted environments', 'Gene therapy', 'Developing vaccines'],
+      correctAnswer: 1
+    },
+    {
+      id: 17,
+      text: 'What is the term for a virus that infects bacteria?',
+      options: ['Viroid', 'Prion', 'Bacteriophage', 'Retrovirus'],
+      correctAnswer: 2
+    },
+    {
+      id: 18,
+      text: 'Which of the following is NOT a type of viral genome?',
+      options: ['Single-stranded RNA', 'Double-stranded DNA', 'Circular DNA', 'Triple-stranded RNA'],
+      correctAnswer: 3
+    },
+    {
+      id: 19,
+      text: 'What type of virus is classified as a retrovirus?',
+      options: ['DNA virus', 'RNA virus', 'Bacteriophage', 'Emerging virus'],
+      correctAnswer: 1
+    },
+    {
+      id: 20,
+      text: 'What is the first step in the viral replication cycle?',
+      options: ['Biosynthesis', 'Release', 'Attachment', 'Assembly'],
+      correctAnswer: 2
+    },
+    {
+      id: 21,
+      text: 'Which one of the following diseases is not caused by virus?',
+      options: ['Mumps', 'Rabies', 'Polio', 'Thrush'],
+      correctAnswer: 3
+    },
+    {
+      id: 22,
+      text: 'During which phase does the viral genetic material enter the host cell?',
+      options: ['Penetration', 'Assembly', 'Release', 'Replication'],
+      correctAnswer: 0
+    },
+    {
+      id: 23,
+      text: 'What occurs during the synthesis phase of viral replication?',
+      options: ['Virus attaches to the host cell', 'Host cell machinery replicates viral components', 'Viruses are released from the host cell', 'Host immune response is activated.'],
+      correctAnswer: 1
+    },
+    {
+      id: 24,
+      text: 'Which of the following is NOT a method of microbial reproduction?',
+      options: ['Binary fission', 'Budding', 'Fragmentation', 'Mitosis'],
+      correctAnswer: 3
+    },
+    {
+      id: 25,
+      text: 'Which of the following is a characteristic of bacteria?',
+      options: ['Membrane-bound organelles', 'Unicellular and prokaryotic', 'Multicellular and eukaryotic', 'Contains a nucleus'],
+      correctAnswer: 1
+    },
+    {
+      id: 26,
+      text: 'What is a virus composed of?',
+      options: ['Cell wall and genetic material', 'Protein coat and genetic material', 'Cytoplasm and plasma membrane', 'Nucleus and ribosomes'],
+      correctAnswer: 1
+    },
+    {
+      id: 27,
+      text: 'Which of the following statements about enzymes is true?',
+      options: ['Enzymes are consumed in the reactions they catalyze.', 'Enzymes can change the equilibrium of a chemical reaction.', 'Enzymes lower the activation energy of reactions.', 'Enzymes function independently of their environment.'],
+      correctAnswer: 2
+    },
+    {
+      id: 28,
+      text: 'Which condition would likely lead to enzyme denaturation?',
+      options: ['Increase in substrate concentration', 'Decrease in temperature', 'Extreme pH levels', 'Increased availability of coenzymes'],
+      correctAnswer: 2
+    },
+    {
+      id: 29,
+      text: 'Which of the following is the primary goal of infection prevention and control?',
+      options: ['Treating infections', 'Diagnosing infections', 'Preventing the spread of infections', 'Reporting infections'],
+      correctAnswer: 2
+    },
+    {
+      id: 30,
+      text: 'If the rate of an enzyme catalyzed reaction remains constant even when more substrate is added to the reaction, which of the following might be the reason?',
+      options: ['Saturation of the enzyme', 'Inactivation of enzyme –substrate complex formation', 'Inactivation of the enzyme', 'Loss of substrate specificity by the enzyme'],
+      correctAnswer: 0
+    },
+    {
+      id: 31,
+      text: 'Which one of the following terms refers to how fast an enzyme acts on its substrate?',
+      options: ['Turn over number', 'Enzyme number', 'Substrate number', 'Product number'],
+      correctAnswer: 0
+    },
+    {
+      id: 32,
+      text: 'The optimum temperature of enzymes found in thermopiles bacteria is',
+      options: ['Lower than for enzymes in the human body', 'Higher than enzymes in the human body', 'The same as enzymes found in human body', 'Lower than enzymes found in warm blooded animals'],
+      correctAnswer: 1
+    },
+    {
+      id: 33,
+      text: 'Which one of the following functions best at higher optimum pH all the rest?',
+      options: ['Pepsin', 'Salivary amylase', 'Trypsin', 'Enzymes in stomach'],
+      correctAnswer: 2
+    },
+    {
+      id: 34,
+      text: 'Which class of enzymes joins two molecules together by formation of new bonds?',
+      options: ['Ligase', 'Isomerase', 'Lyase', 'Hydrolase'],
+      correctAnswer: 0
+    },
+    {
+      id: 35,
+      text: 'In enzymes that contain non-protein organic molecules, in addition to the protein component, what is the protein component called?',
+      options: ['Apoenzyme', 'Coenzyme', 'Holoenzyme', 'Cofactor'],
+      correctAnswer: 0
+    },
+    {
+      id: 36,
+      text: 'Which one of the following should be done in order to remove an enzyme inhibition caused by a competitive inhibitor?',
+      options: ['Remove affected enzyme molecules', 'Add more substrate to the system', 'Add more inhibitor to the system', 'Remove the end product of the reaction'],
+      correctAnswer: 1
+    },
+    {
+      id: 37,
+      text: 'Which of the following expression is more related to the phrase "survival of the fittest"?',
+      options: ['natural selection', 'gene mutation', 'inheritance of acquired characteristics', 'Mendelian inheritance'],
+      correctAnswer: 0
+    },
+    {
+      id: 38,
+      text: 'If a substance that weighs 2,000 grams and has a half-life of 100 years is left with only 250 grams, for how long has the radioactive decaying actively been undergoing?',
+      options: ['200 years', '250 years', '300 years', '500 years'],
+      correctAnswer: 2
+    },
+    {
+      id: 39,
+      text: 'What do you call structures that have the same evolutionary origin even though they may now have different structural make ups or functions?',
+      options: ['Endemic', 'Analogous', 'Homologous', 'Indigenous'],
+      correctAnswer: 2
+    },
+    {
+      id: 40,
+      text: 'Gene flow is the movement of genetic material',
+      options: ['Without altering the allele frequencies.', 'That drives a population towards perfection.', 'Without affecting the balance of gene pool of a population.', 'Where organisms either join or leave a population.'],
+      correctAnswer: 3
+    },
+    {
+      id: 41,
+      text: 'Which one of the following diseases is caused by fungi?',
+      options: ['Ring worm', 'Giardiasis', 'pneumonia', 'Rabies'],
+      correctAnswer: 0
+    },
+    {
+      id: 42,
+      text: 'Which process involves the conversion of nitrates in the soil back to atmospheric nitrogen?',
+      options: ['Ammonification', 'Nitrification', 'Nitrogen fixation', 'Denitrification.'],
+      correctAnswer: 3
+    },
+    {
+      id: 43,
+      text: 'Which of the following is true about the phosphorus cycle?',
+      options: ['It includes atmospheric processes.', 'It is primarily a geological cycle with little atmospheric influence.', 'It occurs rapidly due to microbial activity.', 'It is the only cycle that does not involve living organisms.'],
+      correctAnswer: 1
+    },
+    {
+      id: 44,
+      text: 'What role do plants play in the carbon cycle?',
+      options: ['Plants release carbon dioxide during photosynthesis.', 'Plants absorb carbon dioxide and release oxygen.', 'Plants only serve as a carbon reservoir.', 'Plants do not play a significant role in the carbon cycle.'],
+      correctAnswer: 1
+    },
+    {
+      id: 45,
+      text: 'Which of the following statements about enzymes is true?',
+      options: ['Enzymes are consumed in the reactions they catalyze.', 'Enzymes can change the equilibrium of a chemical reaction.', 'Enzymes lower the activation energy of reactions.', 'Enzymes function independently of their environment'],
+      correctAnswer: 2
+    },
+    {
+      id: 46,
+      text: 'What is the primary source of energy for life on Earth?',
+      options: ['Wind Energy', 'Geothermal Energy', 'Solar Energy', 'Nuclear Energy'],
+      correctAnswer: 2
+    },
+    {
+      id: 47,
+      text: 'During photosynthesis, plants convert light energy into:',
+      options: ['Chemical energy', 'Thermal energy', 'Mechanical energy', 'Electrical energy'],
+      correctAnswer: 0
+    },
+    {
+      id: 48,
+      text: 'Which of the following statements accurately describes Photosystem II?',
+      options: ['It absorbs light energy at a wavelength of 700 nm.', 'It is the first photosystem in the linear electron flow.', 'It produces NADPH directly.', 'It lacks a reaction center chlorophyll molecule.'],
+      correctAnswer: 1
+    },
+    {
+      id: 49,
+      text: 'What is the primary function of Photosystem I in the light-dependent reactions of photosynthesis?',
+      options: ['Water splitting', 'Production of ATP', 'Reduction of NADP+ to NADPH', 'Generation of electron transport chain'],
+      correctAnswer: 2
+    },
+    {
+      id: 50,
+      text: 'In which part of the chloroplast does Photosystem II primarily operate?',
+      options: ['Stroma', 'Thylakoid membrane', 'Intermembrane space', 'Granum'],
+      correctAnswer: 1
+    },
+    {
+      id: 51,
+      text: 'What is the role of the oxygen-evolving complex in Photosystem II?',
+      options: ['To reduce NADP+', 'To harvest light energy', 'To generate ATP', 'To split water molecules and release oxygen'],
+      correctAnswer: 3
+    },
+    {
+      id: 52,
+      text: 'Which molecule acts as the primary electron donor to Photosystem II?',
+      options: ['NADPH', 'Water', 'Chlorophyll a', 'Cytochrome b6f'],
+      correctAnswer: 1
+    },
+    {
+      id: 53,
+      text: 'The absorption of photons by pigments in Photosystem I, leads to the excitation of electrons. Which chlorophyll molecule is typically involved in this process?',
+      options: ['Chlorophyll b', 'Chlorophyll a', 'Carotenoids', 'Phycobilins'],
+      correctAnswer: 1
+    },
+    {
+      id: 54,
+      text: 'Which of the following best describes the Z-scheme of electron flow in photosynthesis?',
+      options: ['It represents a linear flow of electrons from Photosystem I to ATP synthase.', 'It is a cyclic pathway that involves only Photosystem I.', 'It describes the energy changes as electrons transit from Photosystem II to Photosystem I.', 'It involves the direct conversion of light energy to heat.'],
+      correctAnswer: 2
+    },
+    {
+      id: 55,
+      text: 'During non-cyclic photophosphorylation, which protein complex is responsible for creating a proton gradient across the thylakoid membrane?',
+      options: ['Photosystem I', 'Photosystem II', 'Cytochrome b6f', 'ATP synthase'],
+      correctAnswer: 2
+    },
+    {
+      id: 56,
+      text: 'How does the P700 reaction center of Photosystem I differ from the P680 reaction center of Photosystem II?',
+      options: ['It absorbs light at a longer wavelength.', 'It is located in the thylakoid lumen.', 'It does not participate in electron transport.', 'It directly produces oxygen.'],
+      correctAnswer: 0
+    },
+    {
+      id: 57,
+      text: 'Which of the following pathways is primarily used by C3 plants for carbon fixation?',
+      options: ['Calvin cycle', 'Hatch-Slack pathway', 'CAM pathway', 'Glycolysis'],
+      correctAnswer: 0
+    },
+    {
+      id: 58,
+      text: 'Which gas contributes to photorespiration in C3 plants, reducing their efficiency?',
+      options: ['Oxygen', 'Carbon dioxide', 'Nitrogen', 'Methane'],
+      correctAnswer: 0
+    },
+    {
+      id: 59,
+      text: 'What is a major advantage of C4 plants over C3 plants in terms of photosynthesis?',
+      options: ['They fix carbon at night.', 'They have a higher photosynthetic efficiency under high light intensity.', 'They require less water.', 'They do not experience photorespiration.'],
+      correctAnswer: 1
+    },
+    {
+      id: 60,
+      text: 'Which of the following best describes the role of PEP carboxylase in C4 plants?',
+      options: ['It promotes the formation of glucose.', 'It initiates the fixation of carbon dioxide to form four-carbon compounds.', 'It catalyzes the regeneration of RuBP.', 'It is involved in the light-dependent reactions.'],
+      correctAnswer: 1
+    },
+    {
+      id: 61,
+      text: 'CAM plants open their stomata primarily during which part of the day?',
+      options: ['Morning', 'Afternoon', 'Night', 'Midday'],
+      correctAnswer: 2
+    },
+    {
+      id: 62,
+      text: 'What type of environment do C4 and CAM plants primarily thrive in?',
+      options: ['Cool and moist', 'Hot and arid', 'Temperate', 'Aquatic'],
+      correctAnswer: 1
+    },
+    {
+      id: 63,
+      text: 'The main product of photosynthesis in CAM plants during the night is',
+      options: ['Glucose', 'Malate', 'Ribulose bisphosphate (RuBP)', 'Glyceraldehyde-3-phosphate (G3P)'],
+      correctAnswer: 1
+    },
+    {
+      id: 64,
+      text: 'What distinguishes C4 plants from C3 plants in terms of leaf structure?',
+      options: ['They have larger leaf surfaces.', 'They have more stomata', 'They possess specialized bundle sheath cells.', 'They contain fewer chloroplasts.'],
+      correctAnswer: 2
+    },
+    {
+      id: 65,
+      text: 'Rubisco, the enzyme involved in carbon fixation in C3 plants, is affected by:',
+      options: ['Increased oxygen concentration', 'Higher temperature', 'Lower carbon dioxide concentration', 'All of the above'],
+      correctAnswer: 3
+    },
+    {
+      id: 66,
+      text: 'Which of the following statements about CAM plants is correct?',
+      options: ['They are less water-efficient than C3 plants.', 'They conduct photosynthesis in the cytoplasm exclusively.', 'They can fix carbon dioxide at two different times in the day.', 'They do not use the Calvin cycle.'],
+      correctAnswer: 2
+    },
+    {
+      id: 67,
+      text: 'Which of the following processes occurs in the cytoplasm of a eukaryotic cell during cellular respiration?',
+      options: ['Krebs cycle', 'Glycolysis', 'Electron transport chain', 'Chemiosmosis'],
+      correctAnswer: 1
+    },
+    {
+      id: 68,
+      text: 'Which of the following molecules serves as the final electron acceptor in the electron transport chain?',
+      options: ['Water', 'Carbon dioxide', 'Oxygen', 'Glucose'],
+      correctAnswer: 2
+    },
+    {
+      id: 69,
+      text: 'In which part of the cell does the Krebs cycle occur?',
+      options: ['Cytoplasm', 'Mitochondrial matrix', 'Inner mitochondrial membrane', 'Chloroplast'],
+      correctAnswer: 1
+    },
+    {
+      id: 70,
+      text: 'Which of the following statements about anaerobic respiration is true?',
+      options: ['It occurs in the presence of oxygen.', 'It produces more ATP than aerobic respiration.', 'It includes glycolysis and fermentation processes.', 'It solely occurs in plants.'],
+      correctAnswer: 2
+    },
+    {
+      id: 71,
+      text: 'During the Krebs cycle, which molecule is regenerated to keep the cycle running?',
+      options: ['NADH', 'Acetyl-CoA', 'Oxaloacetate', 'FADH2'],
+      correctAnswer: 2
+    },
+    {
+      id: 72,
+      text: 'Which coenzyme is required to transport acetyl groups into the Krebs cycle?',
+      options: ['NAD+', 'FAD', 'Coenzyme A', 'ATP'],
+      correctAnswer: 2
+    },
+    {
+      id: 73,
+      text: 'In oxidative phosphorylation, the energy for ATP synthesis is directly provided by:',
+      options: ['Substrate-level phosphorylation', 'The breakdown of glucose', 'The proton gradient across the inner mitochondrial membrane', 'The reduction of NAD+'],
+      correctAnswer: 2
+    },
+    {
+      id: 74,
+      text: 'What role does oxygen play in cellular respiration?',
+      options: ['It provides energy for the Krebs cycle.', 'It acts as an electron donor.', 'It is a substrate for glycolysis.', 'It acts as the final electron acceptor in the electron transport chain.'],
+      correctAnswer: 3
+    },
+    {
+      id: 75,
+      text: 'Which hypothesis suggests that life originated from simple organic compounds formed in the early Earth\'s atmosphere?',
+      options: ['Hydrothermal Vent Hypothesis', 'Primordial Soup Hypothesis', 'Panspermia Hypothesis', 'Clay Hypothesis'],
+      correctAnswer: 1
+    },
+    {
+      id: 76,
+      text: 'The Miller-Urey experiment is significant because it:',
+      options: ['Demonstrated the role of DNA in heredity', 'Simulated the conditions of early Earth and produced amino acids', 'Proven the existence of extraterrestrial life', 'Isolated the first living cell.'],
+      correctAnswer: 1
+    },
+    {
+      id: 77,
+      text: 'Which of the following is a key factor in the endosymbiotic theory for the origin of eukaryotic cells?',
+      options: ['The role of RNA in protein synthesis', 'The incorporation of prokaryotic cells into larger cells forming organelles like mitochondria', 'The development of multicellularity.', 'The occurrence of photosynthesis in protists.'],
+      correctAnswer: 1
+    },
+    {
+      id: 78,
+      text: 'Which of the following statements is TRUE regarding the conditions on early Earth?',
+      options: ['Oxygen levels were extremely high, favoring aerobic life forms.', 'The atmosphere was primarily composed of nitrogen and oxygen.', 'The environment was rich in volcanic activity and lacked free oxygen', 'Liquid water was absent due to high temperatures.'],
+      correctAnswer: 2
+    },
+    {
+      id: 79,
+      text: 'Panspermia is the hypothesis that:',
+      options: ['Life originated from organic molecules on Earth.', 'Life was brought to Earth by comets or meteorites.', 'Life evolved from non-living matter spontaneously.', 'Life developed in hydrothermal vents on the ocean floor.'],
+      correctAnswer: 1
+    },
+    {
+      id: 80,
+      text: 'The concept of abiogenesis refers to:',
+      options: ['The development of multicellular organisms from unicellular ones', 'The formation of life from non-living matter.', 'The evolution of life on other planets.', 'The processes of natural selection.'],
+      correctAnswer: 1
+    },
+    {
+      id: 81,
+      text: 'Which of the following best describes Charles Darwin\'s concept of "natural selection"?',
+      options: ['Organisms evolve to perfection', 'All traits are inherited equally.', 'Survival of the fittest', 'Evolution is a random process'],
+      correctAnswer: 2
+    },
+    {
+      id: 82,
+      text: 'What is the primary mechanism through which evolution occurs, according to modern evolutionary theory?',
+      options: ['Genetic drift', 'Gene flow', 'Natural selection', 'Mutation'],
+      correctAnswer: 2
+    },
+    {
+      id: 83,
+      text: 'What type of selection occurs when individuals with intermediate phenotypes are favored?',
+      options: ['Directional selection', 'Disruptive selection', 'Stabilizing selection', 'Artificial selection'],
+      correctAnswer: 2
+    },
+    {
+      id: 84,
+      text: 'Which of the following statements regarding homologous structures is true?',
+      options: ['They perform the same function in different species', 'They are derived from a common ancestor', 'They are identical in form and function', 'They are solely the result of convergent evolution'],
+      correctAnswer: 1
+    },
+    {
+      id: 85,
+      text: 'What is adaptive radiation?',
+      options: ['The extinction of a species due to environmental changes.', 'The process by which related species evolve different traits.', 'The gradual change of a single species over time.', 'The random formation of new species.'],
+      correctAnswer: 1
+    },
+    {
+      id: 86,
+      text: 'The concept of "common descent" refers to:',
+      options: ['All species evolving independently.', 'Species adapting to their environment without change.', 'Species sharing a common ancestor.', 'The belief in creationism'],
+      correctAnswer: 2
+    },
+    {
+      id: 87,
+      text: 'Which of the following is NOT a driving force of evolutionary change?',
+      options: ['Gene flow', 'Genetic drift', 'Environmental degradation', 'Natural selection'],
+      correctAnswer: 2
+    },
+    {
+      id: 88,
+      text: 'Which hominin species is most closely related to modern humans?',
+      options: ['Australopithecus afarensis', 'Homo habilis', 'Homo neanderthalensis', 'Homo erectus'],
+      correctAnswer: 2
+    },
+    {
+      id: 89,
+      text: 'What is one of the primary anatomical changes that occurred in early hominins as they evolved towards modern humans?',
+      options: ['Increase in jaw size', 'Decrease in brain size', 'Change in pelvis shape', 'Increase in body hair'],
+      correctAnswer: 2
+    },
+    {
+      id: 90,
+      text: 'What role did the use of tools have in human evolution?',
+      options: ['It led to decreased brain size.', 'It had no significant impact on survival.', 'It enabled the development of complex social structures.', 'It resulted in a vegetarian diet.'],
+      correctAnswer: 2
+    },
+    {
+      id: 91,
+      text: 'Which of the following is a characteristic of Homo sapiens?',
+      options: ['Larger brow ridges than Homo erectus', 'Smaller brain size than Neanderthals', 'Flat face and prominent chin', 'Longer limbs than other hominins.'],
+      correctAnswer: 2
+    },
+    {
+      id: 92,
+      text: 'Which of the following is a likely reason for the migration of early humans out of Africa?',
+      options: ['Overpopulation in their local area', 'The search for vegetable-based diets', 'Changes in climate and availability of resources', 'Competition with other hominin species.'],
+      correctAnswer: 2
+    },
+    {
+      id: 93,
+      text: 'What is the term for a mutation that does not change the amino acid sequence of a protein?',
+      options: ['Missense mutation', 'Nonsense mutation', 'Silent mutation', 'Frameshift mutation'],
+      correctAnswer: 2
+    },
+    {
+      id: 94,
+      text: 'What type of mutation results when a single nucleotide is replaced with another nucleotide?',
+      options: ['Deletion', 'Insertion', 'Substitution', 'Duplication'],
+      correctAnswer: 2
+    },
+    {
+      id: 95,
+      text: 'Mutagens are substances that:',
+      options: ['Increase the rate of transcription', 'Cause mutations in DNA', 'Repair damaged DNA', 'Promote cell division'],
+      correctAnswer: 1
+    },
+    {
+      id: 96,
+      text: 'What is the main effect of a chromosomal mutation?',
+      options: ['Changes in single genes only.', 'Alterations in chromosome structure or number', 'Silent changes in protein synthesis', 'Random alterations in DNA base pairs'],
+      correctAnswer: 1
+    },
+    {
+      id: 97,
+      text: 'During synaptic transmission, which process occurs first?',
+      options: ['Neurotransmitter release into the synaptic cleft', 'Binding of neurotransmitters to receptors', 'Calcium influx into the presynaptic neuron', 'Repolarization of the postsynaptic membrane'],
+      correctAnswer: 2
+    },
+    {
+      id: 98,
+      text: 'Long-term alcohol abuse can lead to which of the following health issues?',
+      options: ['Schizophrenia', 'Liver cirrhosis', 'Hypertension', 'Diabetes'],
+      correctAnswer: 1
+    },
+    {
+      id: 99,
+      text: 'Which layer of the skin contains the majority of sensory receptors for touch and pressure?',
+      options: ['Epidermis', 'Dermis', 'Hypodermis', 'Subcutaneous layer'],
+      correctAnswer: 1
+    },
+    {
+      id: 100,
+      text: 'Which type of mechanoreceptor is specifically sensitive to vibration?',
+      options: ['Meissner\'s corpuscles', 'Pacinian corpuscles', 'Ruffini endings', 'Merkel cells'],
+      correctAnswer: 1
+    }
+  ]
+};
